@@ -36,10 +36,63 @@
  * ******************************************************************************
  */
 
-setup() {
-}
+/* ******************************************************************************
+ * BIT MASKS FOR NAMING 8-bit PORTS
+ * ******************************************************************************
+ */
+#define REG_X          PORTA
+#define DDR_X          DDRA
+#define PIN_X          PINA 
+#define MASK_REG_X     0xFF
 
-loop() {
-}
+#define REG_Y          PORTC
+#define DDR_Y          DDRC
+#define PIN_Y          PINC 
+#define MASK_REG_Y     0xFF
+
+#define REG_Z          PORTL
+#define DDR_Z          DDRL
+#define PIN_Z          PINL 
+#define MASK_REG_Z     0xFF
+
+#define REG_FLAG       PORTB
+#define DDR_FLAG       DDRB
+#define PIN_FLAG       PINB 
+#define MASK_REG_FLAG  0xFF
+
+#define REG_CTRL       PORTG
+#define DDR_CTRL       DDRG
+#define PIN_CTRL       PING 
+#define MASK_REG_CTRL  0xFF
+
+/* ******************************************************************************
+ * UTILITY MASKS 
+ * ******************************************************************************
+ */
+#define MASK_YES       0x01
+#define MASK_NO        0x00
+
+#define MASK_NULL      0x00
+#define MASK_LOW       0x0F
+#define MASK_HIGH      0xF0
+#define MASK_FULL      0xFF
+
+/* ******************************************************************************
+ * 
+ * ******************************************************************************
+ */
+#define NIBBLE_COUNTER_SIZE 64 
+unsigned int nibble_counter[NIBBLE_COUNTER_SIZE] = {
+   0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+   0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F
+};
+
+
+
+
+/* ******************************************************************************
+ * 
+ * ******************************************************************************
+ */
 
 
