@@ -58,12 +58,12 @@
 #define REG_FLAG       PORTB
 #define DDR_FLAG       DDRB
 #define PIN_FLAG       PINB 
-#define MASK_REG_FLAG  0xFF
+#define MASK_REG_FLAG  0x0F
 
 #define REG_CTRL       PORTG
 #define DDR_CTRL       DDRG
 #define PIN_CTRL       PING 
-#define MASK_REG_CTRL  0xFF
+#define MASK_REG_CTRL  0x0F
 
 /* ******************************************************************************
  * UTILITY MASKS 
@@ -122,28 +122,31 @@ Serial.print("\n==============================================\n");
 Serial.println("Begin port diagnostics");
 Serial.println("PORT, DDR, PIN");
 Serial.println("Port A");
-Serial.println(PORTA, BIN);
-Serial.println(DDRA, BIN);
-Serial.println(PINA, BIN);
+Serial.println(REG_X, BIN);
+Serial.println(DDR_X, BIN);
+Serial.println(PIN_X, BIN);
 Serial.println("Port C");
-Serial.println(PORTC, BIN);
-Serial.println(DDRC, BIN);
-Serial.println(PINC, BIN);
+Serial.println(REG_Y, BIN);
+Serial.println(DDR_Y, BIN);
+Serial.println(PIN_Y, BIN);
 Serial.println("Port L");
-Serial.println(PORTL, BIN);
-Serial.println(DDRL, BIN);
-Serial.println(PINL, BIN);
+Serial.println(REG_Z, BIN);
+Serial.println(DDR_Z, BIN);
+Serial.println(PIN_Z, BIN);
 Serial.println("Port B");
-Serial.println(PORTB, BIN);
-Serial.println(DDRB, BIN);
-Serial.println(PINB, BIN);
+Serial.println(REG_FLAG & MASK_REG_FLAG, BIN);
+Serial.println(DDR_FLAG & MASK_REG_FLAG, BIN);
+Serial.println(PIN_FLAG & MASK_REG_FLAG,  BIN);
 Serial.println("Port G");
-Serial.println(PORTG, BIN);
-Serial.println(DDRG, BIN);
-Serial.println(PING, BIN);
+Serial.println(REG_CTRL & MASK_REG_CTRL, BIN);
+Serial.println(DDR_CTRL & MASK_REG_CTRL, BIN);
+Serial.println(PIN_CTRL & MASK_REG_CTRL, BIN);
 Serial.println("End port diagnostics");
 Serial.print(  "==============================================\n\n");
 
 }
 
+void setup() {
+   Serial.begin(115200);
+   while( !Serial);
 
