@@ -87,12 +87,59 @@ unsigned int nibble_counter[NIBBLE_COUNTER_SIZE] = {
    0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F
 };
 
-
-
-
 /* ******************************************************************************
- * 
+ * BASIC API FUNCTIONS
  * ******************************************************************************
  */
+unsigned int readMega(unsigned int port_name, unsigned int mask_name);
+unsigned int writeMega(unsigned int port_name, unsigned int mask_name, unsigned int data_byte);
+unsigned int debugPorts();
+
+/* ******************************************************************************
+ * FUNCTION IMPLEMENTATIONS
+ * ******************************************************************************
+ */
+
+// FUNCTION:
+// Returns: data_byte read.
+unsigned int readMega(unsigned int port_name, unsigned int mask_name) {
+   unsigned int data_read = 0;
+   return data_read;
+}
+
+
+// FUNCTION:
+// Returns: MASK_NULL on SUCCESS; MASK_FULL on FAILURE
+int writeMega(unsigned int port_name, unsigned int mask_name, unsigned int data_byte) {
+   return MASK_NULL;
+}
+
+
+// FUNCTION:
+// Returns: void
+void debugPorts() {
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
