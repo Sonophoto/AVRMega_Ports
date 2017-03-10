@@ -119,29 +119,29 @@ int writeMega(unsigned int port_name, unsigned int mask_name, unsigned int data_
 // Returns: void
 void debugPorts() {
 Serial.print("\n==============================================\n");
-Serial.println("Begin port diagnostics");
+Serial.println("Begin register / port diagnostics");
 Serial.println("PORT, DDR, PIN");
-Serial.println("Port A");
+Serial.println("Register X");
 Serial.println(REG_X, BIN);
 Serial.println(DDR_X, BIN);
 Serial.println(PIN_X, BIN);
-Serial.println("Port C");
+Serial.println("Register Y");
 Serial.println(REG_Y, BIN);
 Serial.println(DDR_Y, BIN);
 Serial.println(PIN_Y, BIN);
-Serial.println("Port L");
+Serial.println("Register Z");
 Serial.println(REG_Z, BIN);
 Serial.println(DDR_Z, BIN);
 Serial.println(PIN_Z, BIN);
-Serial.println("Port B");
+Serial.println("Flags Register");
 Serial.println(REG_FLAG & MASK_REG_FLAG, BIN);
 Serial.println(DDR_FLAG & MASK_REG_FLAG, BIN);
 Serial.println(PIN_FLAG & MASK_REG_FLAG,  BIN);
-Serial.println("Port G");
+Serial.println("Control Register");
 Serial.println(REG_CTRL & MASK_REG_CTRL, BIN);
 Serial.println(DDR_CTRL & MASK_REG_CTRL, BIN);
 Serial.println(PIN_CTRL & MASK_REG_CTRL, BIN);
-Serial.println("End port diagnostics");
+Serial.println("End register / port diagnostics");
 Serial.print(  "==============================================\n\n");
 
 }
