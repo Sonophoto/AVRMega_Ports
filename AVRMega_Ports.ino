@@ -118,28 +118,32 @@ int writeMega(unsigned int port_name, unsigned int mask_name, unsigned int data_
 // FUNCTION:
 // Returns: void
 void debugPorts() {
+Serial.print("\n==============================================\n");
+Serial.println("Begin port diagnostics");
+Serial.println("PORT, DDR, PIN");
+Serial.println("Port A");
+Serial.println(PORTA, BIN);
+Serial.println(DDRA, BIN);
+Serial.println(PINA, BIN);
+Serial.println("Port C");
+Serial.println(PORTC, BIN);
+Serial.println(DDRC, BIN);
+Serial.println(PINC, BIN);
+Serial.println("Port L");
+Serial.println(PORTL, BIN);
+Serial.println(DDRL, BIN);
+Serial.println(PINL, BIN);
+Serial.println("Port B");
+Serial.println(PORTB, BIN);
+Serial.println(DDRB, BIN);
+Serial.println(PINB, BIN);
+Serial.println("Port G");
+Serial.println(PORTG, BIN);
+Serial.println(DDRG, BIN);
+Serial.println(PING, BIN);
+Serial.println("End port diagnostics");
+Serial.print(  "==============================================\n\n");
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
