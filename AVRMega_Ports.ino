@@ -158,8 +158,66 @@ void setup() {
 }
 
 void loop() {
-delay(1);
-}
+
+     unsigned int test_status = 1;
+     unsigned long write_count = 0;
+
+  for (unsigned int rindex = 0; rindex < REGISTER_LIST_SIZE; rindex++) {
+     Serial.print("Testing Register number: "); Serial.println(register_list[rindex]);
+     unsigned int write_var, read_var = 0;
+
+     switch (register_list[rindex]) {
+        case REGISTER_X:
+        case REGISTER_Y:
+        case REGISTER_Z: {
+           for (unsigned int cindex = 0; cindex < BYTE_COUNTER_SIZE; cindex++) {
+              write_var = byte_counter[cindex];
+              {
+              (void)writeMega(register_list[rindex], 0x00, byte_counter[cindex]);
+              write_count++;
+              }
+              read_var = readMega(register_list[rindex], 0x00);
+              Serial.print("write_var is: "); Serial.println(write_var, BIN);
+              Serial.print(" read_var is: "); Serial.println(read_var, BIN);
+              if ( !(write_var == read_var) ) {
+                 test_status = 0;
+                 Serial.println("FAILED TEST AT __FUNC__, __LINE__");
+                 Serial.print("write_var is: "); Serial.println(write_var, BIN);
+                 Serial.print(" read_var is: "); Serial.println(read_var, BIN);
+                 debugPorts();
+              }
+           }
+           break;
+        }// End 8 bit cases
+        case REGISTER_CTRL:
+        case REGISTER_FLAG: {
+           for (unsigned int cindex = 0; cindex < NIBBLE_COUNTER_SIZE; cindex++) {
+              write_var = byte_counter[cindex];
+              {
+              (void)writeMega(register_list[rindex], 0x00, nibble_counter[cindex]);
+              write_count++;
+              }
+              read_var = readMega(register_list[rindex], 0x00);
+              Serial.print("write_var is: "); Serial.println(write_var, BIN);
+              Serial.print(" read_var is: "); Serial.println(read_var, BIN);
+              if ( !(write_var == read_var) ) {
+                 test_status = 0;
+                 Serial.println("FAILED TEST AT __FUNC__, __LINE__");
+                 Serial.print("write_var is: "); Serial.println(write_var, BIN);
+                 Serial.print(" read_var is: "); Serial.println(read_var, BIN);
+                 debugPorts();
+              }
+           }
+           break;
+        } // end 4 bit cases
+     } // End switch (register_list[rindex])
+  } // End for(rindex)
+   if (test_status) {
+      Serial.println("ALL TESTS PASSED");
+      Serial.print("Number of writes: "); Serial.println(write_count);
+   }
+   delay(100000);
+} // End loop()
 
 
 /* ******************************************************************************
