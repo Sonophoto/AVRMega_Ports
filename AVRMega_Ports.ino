@@ -208,27 +208,48 @@ unsigned int readMega(unsigned int reg_name, unsigned int mask_name) {
 // FUNCTION:
 // Returns: MASK_NULL on SUCCESS; MASK_FULL on FAILURE
 unsigned int writeMega(unsigned int reg_name, unsigned int mask_name, unsigned int data_byte) {
+   unsigned int data_write = 0;
 
-   switch (reg_name) { 
+   switch (reg_name) {
       case REGISTER_X: {
-        return MASK_SUCCESS;
+         data_write = ( (data_byte) & (MASK_REG_X) ); // Trim data with register's mask
+         DDR_X |= (MASK_REG_X);                       // Set our data register to source output
+         REG_X ^= REG_X;                              // Clear existing data
+         REG_X |= data_write;                         // write register with our bits
+         return MASK_SUCCESS;
       }
       case REGISTER_Y: {
-        return MASK_SUCCESS;
+         data_write = ( (data_byte) & (MASK_REG_Y) );
+         DDR_Y |= (MASK_REG_Y);
+         REG_Y ^= REG_Y;
+         REG_Y |= data_write;
+         return MASK_SUCCESS;
       }
       case REGISTER_Z: {
-        return MASK_SUCCESS;
+         data_write = ( (data_byte) & (MASK_REG_Z) );
+         DDR_Z |= (MASK_REG_Z);
+         REG_Z ^= REG_Z;
+         REG_Z |= data_write;
+         return MASK_SUCCESS;
       }
       case REGISTER_CTRL: {
-        return MASK_SUCCESS;
+         data_write = ( (data_byte) & (MASK_REG_CTRL) );
+         DDR_CTRL |= (MASK_REG_CTRL);
+         REG_CTRL &= ~(MASK_REG_CTRL);                   // Clear ONLY our bits, not entire register ;-)
+         REG_CTRL |= data_write;
+         return MASK_SUCCESS;
       }
       case REGISTER_FLAG: {
-        return MASK_SUCCESS;
+         data_write = ( (data_byte) & (MASK_REG_FLAG) );
+         DDR_FLAG |= (MASK_REG_FLAG);
+         REG_FLAG &= ~(MASK_REG_FLAG);                   // Clear ONLY our bits, not entire register
+         REG_FLAG |= data_write;
+         return MASK_SUCCESS;
       }
       default : {
-        Serial.println("ERROR: BAD reg_name VALUE TO __FUNC__, __LINE__");
-        debugPorts();
-        return MASK_FAILURE;
+         Serial.println("ERROR: BAD reg_name VALUE TO __FUNC__, __LINE__");
+         debugPorts();
+         return MASK_FAILURE;
       }
    } // End switch (reg_name)
 } // End writeMega()
