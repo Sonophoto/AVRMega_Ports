@@ -37,6 +37,11 @@
  */
 
 /* ******************************************************************************
+ * DEBUGGING BITS
+ * ******************************************************************************
+ */
+#define DEBUG_AVRMEGA_PORTS
+/* ******************************************************************************
  * BIT MASKS FOR NAMING 8-bit PORTS
  * ******************************************************************************
  */
@@ -177,8 +182,11 @@ void loop() {
               write_count++;
               }
               read_var = readMega(register_list[rindex], 0x00);
+#ifdef DEBUG_AVRMEGA_PORTS
               Serial.print("write_var is: "); Serial.println(write_var, BIN);
               Serial.print(" read_var is: "); Serial.println(read_var, BIN);
+              debugRegister(register_list[rindex]);
+#endif
               if ( !(write_var == read_var) ) {
                  test_status = 0;
                  Serial.println("FAILED TEST AT __FUNC__, __LINE__");
@@ -198,8 +206,11 @@ void loop() {
               write_count++;
               }
               read_var = readMega(register_list[rindex], 0x00);
+#ifdef DEBUG_AVRMEGA_PORTS
               Serial.print("write_var is: "); Serial.println(write_var, BIN);
               Serial.print(" read_var is: "); Serial.println(read_var, BIN);
+              debugRegister(register_list[rindex]);
+#endif
               if ( !(write_var == read_var) ) {
                  test_status = 0;
                  Serial.println("FAILED TEST AT __FUNC__, __LINE__");
