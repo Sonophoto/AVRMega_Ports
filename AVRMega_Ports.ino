@@ -65,6 +65,18 @@
 #define PIN_CTRL       PING 
 #define MASK_REG_CTRL  0x0F
 
+
+#define REGISTER_X     0x02
+#define REGISTER_Y     0x04
+#define REGISTER_Z     0x08
+#define REGISTER_CTRL  0x20
+#define REGISTER_FLAG  0x40
+
+#define REGISTER_LIST_SIZE 5
+unsigned int register_list[REGISTER_LIST_SIZE] = {
+  REGISTER_X, REGISTER_Y, REGISTER_Z, REGISTER_CTRL, REGISTER_FLAG
+};
+
 /* ******************************************************************************
  * UTILITY MASKS 
  * ******************************************************************************
@@ -74,6 +86,9 @@
 
 #define MASK_YES       0x01
 #define MASK_NO        0x00
+
+#define MASK_FAILURE     0x00
+#define MASK_SUCCESS     0x01
 
 #define MASK_BYTE        0xFF
 #define MASK_Lo_NIBBLE   0x0F
@@ -135,8 +150,8 @@ unsigned int byte_counter[BYTE_COUNTER_SIZE] = {
  * BASIC API FUNCTIONS
  * ******************************************************************************
  */
-unsigned int readMega(unsigned int port_name, unsigned int mask_name);
-unsigned int writeMega(unsigned int port_name, unsigned int mask_name, unsigned int data_byte);
+unsigned int readMega(unsigned int reg_name, unsigned int mask_name);
+unsigned int writeMega(unsigned int reg_name, unsigned int mask_name, unsigned int data_byte);
 void debugPorts();
 
 /* ******************************************************************************
@@ -146,21 +161,62 @@ void debugPorts();
 
 // FUNCTION:
 // Returns: data_byte read.
-unsigned int readMega(unsigned int port_name, unsigned int mask_name) {
+unsigned int readMega(unsigned int reg_name, unsigned int mask_name) {
    unsigned int data_read = 0;
+
+   switch (reg_name) { 
+      case REGISTER_X: {
+         break;
+      }
+      case REGISTER_Y: {
+         break;
+      }
+      case REGISTER_Z: {
+         break;
+      }
+      case REGISTER_CTRL: {
+         break;
+      }
+      case REGISTER_FLAG: {
+         break;
+      }
+      default : {
+         Serial.println("ERROR: BAD reg_name VALUE TO __FUNC__, __LINE__");
+         debugPorts();
+         return MASK_FAILURE;
+      }
+   } // End switch (reg_name)
    return data_read;
-}
+} // End readMega()
 
 
 // FUNCTION:
 // Returns: MASK_NULL on SUCCESS; MASK_FULL on FAILURE
-unsigned int writeMega(unsigned int port_name, unsigned int mask_name, unsigned int data_byte) {
-   if ( 1 ) {
-      return MASK_NULL;
-   } else { 
-      return MASK_FULL;
-   }
-}
+unsigned int writeMega(unsigned int reg_name, unsigned int mask_name, unsigned int data_byte) {
+
+   switch (reg_name) { 
+      case REGISTER_X: {
+        return MASK_SUCCESS;
+      }
+      case REGISTER_Y: {
+        return MASK_SUCCESS;
+      }
+      case REGISTER_Z: {
+        return MASK_SUCCESS;
+      }
+      case REGISTER_CTRL: {
+        return MASK_SUCCESS;
+      }
+      case REGISTER_FLAG: {
+        return MASK_SUCCESS;
+      }
+      default : {
+        Serial.println("ERROR: BAD reg_name VALUE TO __FUNC__, __LINE__");
+        debugPorts();
+        return MASK_FAILURE;
+      }
+   } // End switch (reg_name)
+} // End writeMega()
 
 
 // FUNCTION:
@@ -191,7 +247,6 @@ Serial.println(DDR_CTRL & MASK_REG_CTRL, BIN);
 Serial.println(PIN_CTRL & MASK_REG_CTRL, BIN);
 Serial.println("End register diagnostics");
 Serial.print(  "==============================================\n\n");
-
 }
 
 void setup() {
