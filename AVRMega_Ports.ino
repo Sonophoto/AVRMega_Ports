@@ -65,7 +65,6 @@
 #define PIN_CTRL       PING 
 #define MASK_REG_CTRL  0x0F
 
-
 #define REGISTER_X     0x02
 #define REGISTER_Y     0x04
 #define REGISTER_Z     0x08
@@ -81,23 +80,23 @@ unsigned int register_list[REGISTER_LIST_SIZE] = {
  * UTILITY MASKS 
  * ******************************************************************************
  */
-#define MASK_NULL      0x00
-#define MASK_FULL      0xFF
+#define MASK_NULL       0x00
+#define MASK_FULL       0xFF
 
-#define MASK_YES       0x01
-#define MASK_NO        0x00
+#define MASK_YES        0x01
+#define MASK_NO         0x00
 
-#define MASK_FAILURE     0x00
-#define MASK_SUCCESS     0x01
+#define MASK_FAILURE    0x00
+#define MASK_SUCCESS    0x01
 
-#define MASK_BYTE        0xFF
-#define MASK_Lo_NIBBLE   0x0F
-#define MASK_Hi_NIBBLE   0xF0
+#define MASK_BYTE       0xFF
+#define MASK_Lo_NIBBLE  0x0F
+#define MASK_Hi_NIBBLE  0xF0
 
-#define MASK_LoLo_NIB 0x03
-#define MASK_LoHi_NIB 0x0C
-#define MASK_HiLo_NIB 0x30     
-#define MASK_HiHi_NIB 0xC0
+#define MASK_LoLo_NIB   0x03
+#define MASK_LoHi_NIB   0x0C
+#define MASK_HiLo_NIB   0x30     
+#define MASK_HiHi_NIB   0xC0
 
 /* ******************************************************************************
  * We use these for our test and demo functions
@@ -145,7 +144,6 @@ unsigned int byte_counter[BYTE_COUNTER_SIZE] = {
      0xf8, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff
 };
 
-
 /* ******************************************************************************
  * BASIC API FUNCTIONS
  * ******************************************************************************
@@ -153,6 +151,16 @@ unsigned int byte_counter[BYTE_COUNTER_SIZE] = {
 unsigned int readMega(unsigned int reg_name, unsigned int mask_name);
 unsigned int writeMega(unsigned int reg_name, unsigned int mask_name, unsigned int data_byte);
 void debugPorts();
+
+void setup() {
+   Serial.begin(115200);
+   while( !Serial);
+}
+
+void loop() {
+delay(1);
+}
+
 
 /* ******************************************************************************
  * FUNCTION IMPLEMENTATIONS
@@ -283,14 +291,6 @@ Serial.println(DDR_CTRL & MASK_REG_CTRL, BIN);
 Serial.println(PIN_CTRL & MASK_REG_CTRL, BIN);
 Serial.println("End register diagnostics");
 Serial.print(  "==============================================\n\n");
-}
+} // End debugPorts()
 
-void setup() {
-   Serial.begin(115200);
-   while( !Serial);
-}
-
-void loop() {
-delay(1);
-}
 
