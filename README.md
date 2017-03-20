@@ -10,4 +10,6 @@ You can figure out what I'm doing by looking at the code.
 
 hit me up if you find this, want to use it, and aren't sure what to do next ;-)
 
+I will be turning this into a complete Arduino libary over the next couple of weeks.
 
+This is a 100% unpaid project so it gets time when I'm bored.
