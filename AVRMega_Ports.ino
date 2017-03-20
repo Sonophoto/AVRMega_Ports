@@ -69,13 +69,20 @@
  * UTILITY MASKS 
  * ******************************************************************************
  */
+#define MASK_NULL      0x00
+#define MASK_FULL      0xFF
+
 #define MASK_YES       0x01
 #define MASK_NO        0x00
 
-#define MASK_NULL      0x00
-#define MASK_LOW       0x0F
-#define MASK_HIGH      0xF0
-#define MASK_FULL      0xFF
+#define MASK_BYTE        0xFF
+#define MASK_Lo_NIBBLE   0x0F
+#define MASK_Hi_NIBBLE   0xF0
+
+#define MASK_LoLo_NIB 0x03
+#define MASK_LoHi_NIB 0x0C
+#define MASK_HiLo_NIB 0x30     
+#define MASK_HiHi_NIB 0xC0
 
 /* ******************************************************************************
  * We use these for our test and demo functions
@@ -121,7 +128,7 @@ unsigned int byte_counter[BYTE_COUNTER_SIZE] = {
      0xe8, 0xe9, 0xea, 0xeb, 0xec, 0xed, 0xee, 0xef,
      0xf0, 0xf1, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6, 0xf7,
      0xf8, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff
-}
+};
 
 
 /* ******************************************************************************
