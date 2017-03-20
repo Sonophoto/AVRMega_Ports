@@ -93,7 +93,7 @@ unsigned int nibble_counter[NIBBLE_COUNTER_SIZE] = {
  */
 unsigned int readMega(unsigned int port_name, unsigned int mask_name);
 unsigned int writeMega(unsigned int port_name, unsigned int mask_name, unsigned int data_byte);
-unsigned int debugPorts();
+void debugPorts();
 
 /* ******************************************************************************
  * FUNCTION IMPLEMENTATIONS
@@ -110,8 +110,12 @@ unsigned int readMega(unsigned int port_name, unsigned int mask_name) {
 
 // FUNCTION:
 // Returns: MASK_NULL on SUCCESS; MASK_FULL on FAILURE
-int writeMega(unsigned int port_name, unsigned int mask_name, unsigned int data_byte) {
-   return MASK_NULL;
+unsigned int writeMega(unsigned int port_name, unsigned int mask_name, unsigned int data_byte) {
+   if ( 1 ) {
+      return MASK_NULL;
+   } else { 
+      return MASK_FULL;
+   }
 }
 
 
@@ -119,8 +123,8 @@ int writeMega(unsigned int port_name, unsigned int mask_name, unsigned int data_
 // Returns: void
 void debugPorts() {
 Serial.print("\n==============================================\n");
-Serial.println("Begin register / port diagnostics");
-Serial.println("PORT, DDR, PIN");
+Serial.println("Begin register diagnostics");
+Serial.println("Output Register, Direction Register, Input Register");
 Serial.println("Register X");
 Serial.println(REG_X, BIN);
 Serial.println(DDR_X, BIN);
@@ -141,7 +145,7 @@ Serial.println("Control Register");
 Serial.println(REG_CTRL & MASK_REG_CTRL, BIN);
 Serial.println(DDR_CTRL & MASK_REG_CTRL, BIN);
 Serial.println(PIN_CTRL & MASK_REG_CTRL, BIN);
-Serial.println("End register / port diagnostics");
+Serial.println("End register diagnostics");
 Serial.print(  "==============================================\n\n");
 
 }
@@ -149,4 +153,9 @@ Serial.print(  "==============================================\n\n");
 void setup() {
    Serial.begin(115200);
    while( !Serial);
+}
+
+void loop() {
+delay(1);
+}
 
