@@ -184,7 +184,7 @@ void loop() {
                  Serial.println("FAILED TEST AT __FUNC__, __LINE__");
                  Serial.print("write_var is: "); Serial.println(write_var, BIN);
                  Serial.print(" read_var is: "); Serial.println(read_var, BIN);
-                 debugPorts();
+                 debugRegister(register_list[rindex]);
               }
            }
            break;
@@ -205,7 +205,7 @@ void loop() {
                  Serial.println("FAILED TEST AT __FUNC__, __LINE__");
                  Serial.print("write_var is: "); Serial.println(write_var, BIN);
                  Serial.print(" read_var is: "); Serial.println(read_var, BIN);
-                 debugPorts();
+                 debugRegister(register_list[rindex]);
               }
            }
            break;
@@ -263,6 +263,7 @@ unsigned int readMega(unsigned int reg_name, unsigned int mask_name) {
       }
       default : {
          Serial.println("ERROR: BAD reg_name VALUE TO __FUNC__, __LINE__");
+         Serial.print("reg_name value: "); Serial.println(reg_name);
          debugPorts();
          return MASK_FAILURE;
       }
@@ -351,4 +352,47 @@ Serial.println("End register diagnostics");
 Serial.print(  "==============================================\n\n");
 } // End debugPorts()
 
+
+void debugRegister(unsigned int reg_name) {
+   Serial.print("\n==============================================\n");
+   Serial.println("Begin register diagnostics");
+   Serial.println("Output Register, Direction Register, Input Register");
+   switch(reg_name) {
+   case REGISTER_X:
+      Serial.println("Register X");
+      Serial.println(REG_X, BIN);
+      Serial.println(DDR_X, BIN);
+      Serial.println(PIN_X, BIN);
+      break;
+   case REGISTER_Y:
+      Serial.println("Register Y");
+      Serial.println(REG_Y, BIN);
+      Serial.println(DDR_Y, BIN);
+      Serial.println(PIN_Y, BIN);
+      break;
+   case REGISTER_Z:
+      Serial.println("Register Z");
+      Serial.println(REG_Z, BIN);
+      Serial.println(DDR_Z, BIN);
+      Serial.println(PIN_Z, BIN);
+      break;
+   case REGISTER_CTRL:
+      Serial.println("Control Register");
+      Serial.println(REG_CTRL & MASK_REG_CTRL, BIN);
+      Serial.println(DDR_CTRL & MASK_REG_CTRL, BIN);
+      Serial.println(PIN_CTRL & MASK_REG_CTRL, BIN);
+      break;
+   case REGISTER_FLAG:
+      Serial.println("Flags Register");
+      Serial.println(REG_FLAG & MASK_REG_FLAG, BIN);
+      Serial.println(DDR_FLAG & MASK_REG_FLAG, BIN);
+      Serial.println(PIN_FLAG & MASK_REG_FLAG,  BIN);
+      break;
+   default:
+      debugPorts();
+      break;
+   }
+   Serial.println("End register diagnostics");
+   Serial.print(  "==============================================\n\n");
+} // End debugRegister()
 
