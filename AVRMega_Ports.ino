@@ -166,18 +166,33 @@ unsigned int readMega(unsigned int reg_name, unsigned int mask_name) {
 
    switch (reg_name) { 
       case REGISTER_X: {
-         break;
+         DDR_X &= ~(MASK_REG_X);    // Set AVRMega pins to receive input (1 clock)
+         data_read = (PIN_X);       // Capture data bits                 (1 clock)
+         data_read &= (MASK_REG_X); // Only save OUR bits                (1 clock)
+         break;                     //                                   (1 clock)
       }
       case REGISTER_Y: {
+         DDR_Y &= ~(MASK_REG_Y);
+         data_read = (PIN_Y);
+         data_read &= (MASK_REG_Y);
          break;
       }
       case REGISTER_Z: {
+         DDR_Z &= ~(MASK_REG_Z);
+         data_read = (PIN_Z);
+         data_read &= (MASK_REG_Z);
          break;
       }
-      case REGISTER_CTRL: {
+      case REGISTER_CTRL: {            // ONLY USE THE LOWER 4 BITS OF REGISTER_CTRL
+         DDR_CTRL &= ~(MASK_REG_CTRL); // CRITICAL: Set ONLY our AVRMega Pins to receive input
+         data_read = (PIN_CTRL);       // Capture data bits from entire register
+         data_read &= (MASK_REG_CTRL); // Clear data bits in the high nibble.
          break;
       }
-      case REGISTER_FLAG: {
+      case REGISTER_FLAG: {            // ONLY USE THE LOWER 4 BITS OF REGISTER_FLAG
+         DDR_FLAG &= ~(MASK_REG_FLAG); // CRITICAL: Set ONLY our AVRMega Pins to receive input
+         data_read = (PIN_FLAG);
+         data_read &= (MASK_REG_FLAG);
          break;
       }
       default : {
