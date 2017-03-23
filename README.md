@@ -1,7 +1,10 @@
 
 # AVRMega_Ports
 
-Tutorial on using PORT variables on Arduino Mega2560s and related systems
+Library for fast access to Arduino ATmega2560 digital pins 22-53
+
+Update 23-Mar-2017
+Added a libraries.properties file for the arduino archives
 
 Update 22-Mar-2017
 Moved the defines and functions into seperate include files, both are required.
