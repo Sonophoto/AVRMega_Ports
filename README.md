@@ -9,7 +9,7 @@ Added a libraries.properties file for the arduino archives
 Update 22-Mar-2017
 Moved the defines and functions into seperate include files, both are required.
 
-    USAGE: Drop both .h files into the root of your porject and #include them in your code.
+    USAGE: Drop both .h files into the root of your project and #include them in your code.
     
 This is set up as a single file include system so the functions are defined in the .h file.
  
