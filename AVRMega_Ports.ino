@@ -41,6 +41,7 @@
  * ******************************************************************************
  */
 #define DEBUG_AVRMEGA_PORTS
+
 /* ******************************************************************************
  * BIT MASKS FOR NAMING 8-bit PORTS
  * ******************************************************************************
@@ -76,11 +77,6 @@
 #define REGISTER_CTRL  0x20
 #define REGISTER_FLAG  0x40
 
-#define REGISTER_LIST_SIZE 5
-unsigned int register_list[REGISTER_LIST_SIZE] = {
-  REGISTER_X, REGISTER_Y, REGISTER_Z, REGISTER_CTRL, REGISTER_FLAG
-};
-
 /* ******************************************************************************
  * UTILITY MASKS 
  * ******************************************************************************
@@ -104,9 +100,14 @@ unsigned int register_list[REGISTER_LIST_SIZE] = {
 #define MASK_HiHi_NIB   0xC0
 
 /* ******************************************************************************
- * We use these for our test and demo functions
+ * TEST AND DEMO FUNCTION DATA STRUCTURES
  * ******************************************************************************
  */
+#define REGISTER_LIST_SIZE 5
+unsigned int register_list[REGISTER_LIST_SIZE] = {
+  REGISTER_X, REGISTER_Y, REGISTER_Z, REGISTER_CTRL, REGISTER_FLAG
+};
+
 #define NIBBLE_COUNTER_SIZE 16 
 unsigned int nibble_counter[NIBBLE_COUNTER_SIZE] = {
    0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
@@ -153,15 +154,26 @@ unsigned int byte_counter[BYTE_COUNTER_SIZE] = {
  * BASIC API FUNCTIONS
  * ******************************************************************************
  */
-unsigned int readMega(unsigned int reg_name, unsigned int mask_name);
-unsigned int writeMega(unsigned int reg_name, unsigned int mask_name, unsigned int data_byte);
+unsigned int readMega(unsigned int register_name);
+unsigned int writeMega(unsigned int register_name, unsigned int data_byte);
 void debugPorts();
+void debugPorts(unsigned int register_name);
 
+
+/* ******************************************************************************
+ * Arduino Setup()
+ * ******************************************************************************
+ */
 void setup() {
    Serial.begin(115200);
    while( !Serial);
 }
 
+
+/* ******************************************************************************
+ * Arduino Loop()
+ * ******************************************************************************
+ */
 void loop() {
 
      unsigned int test_status = 1;
@@ -178,10 +190,10 @@ void loop() {
            for (unsigned int cindex = 0; cindex < BYTE_COUNTER_SIZE; cindex++) {
               write_var = byte_counter[cindex];
               {
-              (void)writeMega(register_list[rindex], 0x00, byte_counter[cindex]);
+              (void)writeMega(register_list[rindex], byte_counter[cindex]);
               write_count++;
               }
-              read_var = readMega(register_list[rindex], 0x00);
+              read_var = readMega(register_list[rindex]);
 #ifdef DEBUG_AVRMEGA_PORTS
               Serial.print("write_var is: "); Serial.println(write_var, BIN);
               Serial.print(" read_var is: "); Serial.println(read_var, BIN);
@@ -202,10 +214,10 @@ void loop() {
            for (unsigned int cindex = 0; cindex < NIBBLE_COUNTER_SIZE; cindex++) {
               write_var = byte_counter[cindex];
               {
-              (void)writeMega(register_list[rindex], 0x00, nibble_counter[cindex]);
+              (void)writeMega(register_list[rindex], nibble_counter[cindex]);
               write_count++;
               }
-              read_var = readMega(register_list[rindex], 0x00);
+              read_var = readMega(register_list[rindex]);
 #ifdef DEBUG_AVRMEGA_PORTS
               Serial.print("write_var is: "); Serial.println(write_var, BIN);
               Serial.print(" read_var is: "); Serial.println(read_var, BIN);
@@ -236,9 +248,9 @@ void loop() {
  * ******************************************************************************
  */
 
-// FUNCTION:
+// FUNCTION: readMega() Reads register reg_name.
 // Returns: data_byte read.
-unsigned int readMega(unsigned int reg_name, unsigned int mask_name) {
+unsigned int readMega(unsigned int reg_name) {
    unsigned int data_read = 0;
 
    switch (reg_name) { 
@@ -283,17 +295,17 @@ unsigned int readMega(unsigned int reg_name, unsigned int mask_name) {
 } // End readMega()
 
 
-// FUNCTION:
-// Returns: MASK_NULL on SUCCESS; MASK_FULL on FAILURE
-unsigned int writeMega(unsigned int reg_name, unsigned int mask_name, unsigned int data_byte) {
+// FUNCTION: writeMega() Writes the given data_byte to the given reg_name.
+// Returns: MASK_SUCCESS on SUCCESS; MASK_FAILURE on FAILURE
+unsigned int writeMega(unsigned int reg_name, unsigned int data_byte) {
    unsigned int data_write = 0;
 
    switch (reg_name) {
       case REGISTER_X: {
          data_write = ( (data_byte) & (MASK_REG_X) ); // Trim data with register's mask
          DDR_X |= (MASK_REG_X);                       // Set our data register to source output
-         REG_X ^= REG_X;                              // Clear existing data
-         REG_X |= data_write;                         // write register with our bits
+         REG_X ^= REG_X;                              // Clear register
+         REG_X |= data_write;                         // write ONLY our bits to register
          return MASK_SUCCESS;
       }
       case REGISTER_Y: {
@@ -311,17 +323,17 @@ unsigned int writeMega(unsigned int reg_name, unsigned int mask_name, unsigned i
          return MASK_SUCCESS;
       }
       case REGISTER_CTRL: {
-         data_write = ( (data_byte) & (MASK_REG_CTRL) );
-         DDR_CTRL |= (MASK_REG_CTRL);
+         data_write = ( (data_byte) & (MASK_REG_CTRL) ); // Trim data with register's mask
+         DDR_CTRL |= (MASK_REG_CTRL);                    // Set our data register to source output
          REG_CTRL &= ~(MASK_REG_CTRL);                   // Clear ONLY our bits, not entire register ;-)
-         REG_CTRL |= data_write;
+         REG_CTRL |= data_write;                         // write ONLY our bits to register
          return MASK_SUCCESS;
       }
       case REGISTER_FLAG: {
          data_write = ( (data_byte) & (MASK_REG_FLAG) );
          DDR_FLAG |= (MASK_REG_FLAG);
          REG_FLAG &= ~(MASK_REG_FLAG);                   // Clear ONLY our bits, not entire register
-         REG_FLAG |= data_write;
+         REG_FLAG |= data_write;                         // write ONLY our bits to register
          return MASK_SUCCESS;
       }
       default : {
@@ -333,8 +345,9 @@ unsigned int writeMega(unsigned int reg_name, unsigned int mask_name, unsigned i
 } // End writeMega()
 
 
-// FUNCTION:
+// FUNCTION: debugPorts() Prints the values of Registers _X, _Y, _Z, _CTRL and _FLAG on Serial0
 // Returns: void
+// TODO: Re-Write to return a formatted string.
 void debugPorts() {
 Serial.print("\n==============================================\n");
 Serial.println("Begin register diagnostics");
@@ -364,6 +377,9 @@ Serial.print(  "==============================================\n\n");
 } // End debugPorts()
 
 
+// FUNCTION: debugPorts() Prints the value of register reg_name on Serial0
+// Returns: void
+// TODO: Re-Write to return a formatted string.
 void debugRegister(unsigned int reg_name) {
    Serial.print("\n==============================================\n");
    Serial.println("Begin register diagnostics");
