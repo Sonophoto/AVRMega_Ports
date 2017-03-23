@@ -3,6 +3,14 @@
 
 Tutorial on using PORT variables on Arduino Mega2560s and related systems
 
+Update 22-Mar-2017
+Moved the defines and functions into seperate include files, both are required.
+
+    USAGE: Drop both .h files into the root of your porject and #include them in your code.
+    
+This is set up as a single file include system so the functions are defined in the .h file.
+ 
+
 Update 19-Mar-2017
 I'm still working on this but you will find the readMega and writeMega functions are fully tested
 
