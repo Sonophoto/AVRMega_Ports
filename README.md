@@ -4,9 +4,11 @@
 Library for fast access to Arduino ATmega2560 digital pins 22-53
 
 Update 23-Mar-2017
+Added a new directory for a program "Logica" that will demonstrate the library.
+   Hopefully, this might turn out to be a useful arduino application as well.
 Added a new directory for an Arduino project that runs a test suite.
-   Tests are run on the files in place, unmodified, in the parent directory
-Added a libraries.properties file for the arduino archives
+   Tests are run on the files in place, unmodified, in the parent directory.
+Added a libraries.properties file for the arduino archives.
 
 Update 22-Mar-2017
 Moved the defines and functions into seperate include files, both are required.
@@ -17,7 +19,7 @@ This is set up as a single file include system so the functions are defined in t
  
 
 Update 19-Mar-2017
-I'm still working on this but you will find the readMega and writeMega functions are fully tested
+I'm still working on this but you will find the readMega and writeMega functions are fully tested.
 
 You can figure out what I'm doing by looking at the code. 
 
