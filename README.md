@@ -4,6 +4,8 @@
 Library for fast access to Arduino ATmega2560 digital pins 22-53
 
 Update 23-Mar-2017
+Added a new directory for an Arduino project that runs a test suite.
+   Tests are run on the files in place, unmodified, in the parent directory
 Added a libraries.properties file for the arduino archives
 
 Update 22-Mar-2017
