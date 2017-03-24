@@ -35,14 +35,13 @@
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * ******************************************************************************
  */
- #include "../avrmega_ports.h"
- #include "../avrmega_testdebug.h"
+
 /* ******************************************************************************
  * DEBUGGING BITS
  * ******************************************************************************
  */
-// #define DEBUG_AVRMEGA_REGISTERS
-// #define DEBUG_AVRMEGA_TIMERS
+// #define DEBUG_MEGA2560_REGISTERS
+// #define DEBUG_MEGA2560_TIMERS
 
 /* ******************************************************************************
  * Arduino Setup()
@@ -81,7 +80,7 @@ void loop() {
                write_count++;
                }
                read_var = readMega(register_list[rindex]);
-#ifdef DEBUG_AVRMEGA_REGISTERS
+#ifdef DEBUG_MEGA2560_REGISTERS
                Serial.print("write_var is: "); Serial.println(write_var, BIN);
                Serial.print(" read_var is: "); Serial.println(read_var, BIN);
                debugRegister(register_list[rindex]);
@@ -106,7 +105,7 @@ void loop() {
                write_count++;
                }
                read_var = readMega(register_list[rindex]);
-#ifdef DEBUG_AVRMEGA_REGISTERS
+#ifdef DEBUG_MEGA2560_REGISTERS
                Serial.print("write_var is: "); Serial.println(write_var, BIN);
                Serial.print(" read_var is: "); Serial.println(read_var, BIN);
                debugRegister(register_list[rindex]);
