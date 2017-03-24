@@ -28,10 +28,10 @@
   */
 
 #include <Arduino.h>
-#include "avrmega_ports.h"
+#include "mega2560_ports.h"
 
-#ifndef _AVRMEGA_DEBUG_H
-   #define _AVRMEGA_DEBUG_H
+#ifndef _MEGA2560_DEBUG_H
+   #define _MEGA2560_DEBUG_H
 
 /* ******************************************************************************
  * DEBUG REGISTER FUNCTIONS
@@ -116,4 +116,4 @@ void debugRegister(unsigned int reg_name) {
    Serial.print(  "==============================================\n\n");
 } // End debugRegister()
 
-#endif // DEFINED _AVRMEGA_DEBUG_H
+#endif // DEFINED _MEGA2560_DEBUG_H

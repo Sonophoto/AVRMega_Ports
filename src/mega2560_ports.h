@@ -29,8 +29,8 @@
 
 #include <Arduino.h>
 
-#ifndef _AVRMEGA_PORTS_H
-   #define _AVRMEGA_PORTS_H
+#ifndef _MEGA2560_PORTS_H
+   #define _MEGA2560_PORTS_H
 
 /* ******************************************************************************
  * BASIC API FUNCTIONS
@@ -95,4 +95,4 @@ unsigned int writeMegaMasked(uint register_name, mask_mode, mask_value, data_val
 // STATUS: UNIMPLEMENTED UNTESTED
 unsigned int readMegaMasked(uint register_name, mask_mode, mask_value);
 
-#endif // DEFINED AVRMEGA_PORTS_H
+#endif // DEFINED _MEGA2560_PORTS_H

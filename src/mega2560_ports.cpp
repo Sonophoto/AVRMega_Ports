@@ -28,9 +28,9 @@
   */
 
 #include <Arduino.h>            // ATmega2560 PORTx variables
-#include "avrmega_defines.h"    // Semantic names for our "Registers"
-#include "avrmega_ports.h"      // Prototypes for our API functions
-#include "avrmega_debug.h"      // Implementation of our debugging functions
+#include "mega2560_defines.h"   // Semantic names for our "Registers"
+#include "mega2560_ports.h"     // Prototypes for our API functions
+#include "mega2560_debug.h"     // Implementation of our debugging functions
 
 // TODO:
 /* ******************************************************************************
@@ -55,7 +55,7 @@ unsigned int writeMegaFast(unsigned int pin_number,
    return MASK_FAILURE;
 }
 
-
+// TODO:
 /* ******************************************************************************
  * ADVANCED API FUNCTION IMPLEMENTATIONS
  * ******************************************************************************
@@ -77,14 +77,15 @@ unsigned int writeMegaMasked(unsigned int register_name,
    return MASK_FAILURE;
 }
 
+
+// FINISHED:
 /* ******************************************************************************
- * FINISHED
  * BASIC API FUNCTION IMPLEMENTATIONS
  * ******************************************************************************
  */
 
-// FUNCTION: readMega() Reads register reg_name.
-// Returns: data_byte read.
+// FUNCTION: readMega() Sets reg_name to input, sets data_read to port value.
+// Returns: data_read.
 unsigned int readMega(unsigned int reg_name) {
    unsigned int data_read = 0;
 

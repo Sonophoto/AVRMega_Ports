@@ -28,10 +28,10 @@
   */
 
 #include <Arduino.h>
-#include "avrmega_ports.h"
+#include "mega2560_defines.h"
 
-#ifndef _AVRMEGA_TEST_H
-#define _AVRMEGA_TEST_H
+#ifndef _MEGA2560_TEST_H
+#define _MEGA2560_TEST_H
 
 /* ******************************************************************************
  * TEST AND DEMO FUNCTION DATA STRUCTURES
@@ -42,7 +42,6 @@
 unsigned int register_list[REGISTER_LIST_SIZE] = {
   REGISTER_X, REGISTER_Y, REGISTER_Z, REGISTER_CTRL, REGISTER_FLAG
 };
-
 
 // This is a sequence of 0 to 16d for testing 4 bit registers
 // and a define for use in declarations using this array
@@ -90,4 +89,4 @@ unsigned int byte_counter[BYTE_COUNTER_SIZE] = {
      0xf8, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff
 };
 
-#endif // DEFINED _AVRMEGA_TEST_H
+#endif // DEFINED _MEGA2560_TEST_H

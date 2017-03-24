@@ -28,8 +28,8 @@
   */
 
 
-#ifndef _AVRMEGA_DEFINES_H
-   #define _AVRMEGA_DEFINES_H
+#ifndef _MEGA2560_DEFINES_H
+   #define _MEGA2560_DEFINES_H
    #include <Arduino.h> // Source of our PORTx variables we are renaming
 
 
@@ -114,5 +114,5 @@
 #define MASK_HiLo_NIB    0x30     
 #define MASK_HiHi_NIB    0xC0
 
-#endif // DEFINED AVRMEGA_DEFINES_H
+#endif // DEFINED MEGA2560_DEFINES_H
 
