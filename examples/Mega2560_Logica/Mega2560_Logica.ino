@@ -1,13 +1,7 @@
 /* ******************************************************************************
- *                       AVR Mega Ports: A How-To
  *
- * A fairly complete example of how to use the double row of digital I/O pins
- * on "Arduino Mega" boards (Arduino pins 22-53) by direct access to the AVR
- * Mega 2560 Ports: PORTA PORTC PORTL and the lower nibbles of PORTB and PORTG.
- * 
- * This example teaches how to directly use IO pins by manipulating the control
- * registers of each pin. To simplify the process we use the Arduino prototyping
- * environment and the PORTx variables which map to the AVR Mega's registers.
+ *                       Mega2560_Logica: A Ports How-To
+ *
  * ******************************************************************************
  * BSD 2-Clause License
  *
@@ -35,13 +29,6 @@
  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * ******************************************************************************
  */
- #include "../avrmega_ports.h"
- #include "../avrmega_testdebug.h"
-/* ******************************************************************************
- * DEBUGGING BITS
- * ******************************************************************************
- */
-// #define DEBUG_AVRMEGA_REGISTERS
 
 /* ******************************************************************************
  * Arduino Setup()
@@ -58,7 +45,7 @@ void setup() {
  * ******************************************************************************
  */
 void loop() {
-   Serial.println("This software intentionally left non-blank");
+   Serial.println("This software, Mega2560_Logica, intentionally left non-blank");
    delay(100000);
 } // End loop()
 
