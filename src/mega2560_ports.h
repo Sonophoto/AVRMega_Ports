@@ -27,8 +27,6 @@
   * ******************************************************************************
   */
 
-#include <Arduino.h>
-
 #ifndef _MEGA2560_PORTS_H
    #define _MEGA2560_PORTS_H
 
@@ -55,7 +53,7 @@ unsigned int pinModeFast(unsigned int pin_number, unsigned int mask_mode);
 // DOCSTRING:
 // RETURNS:
 // STATUS: UNIMPLEMENTED UNTESTED
-unsigned int readMegaFast(unsigned int pin_number)
+unsigned int readMegaFast(unsigned int pin_number);
 
 // DOCSTRING:
 // RETURNS:
@@ -88,11 +86,16 @@ void debugRegister(unsigned int register_name);
 // DOCSTRING:
 // RETURNS:
 // STATUS: UNIMPLEMENTED UNTESTED
-unsigned int writeMegaMasked(uint register_name, mask_mode, mask_value, data_value);
+unsigned int writeMegaMasked(unsigned int register_name,
+                             unsigned int mask_mode,
+                             unsigned int mask_value,
+                             unsigned int data_value);
 
 // DOCSTRING:
 // RETURNS:
 // STATUS: UNIMPLEMENTED UNTESTED
-unsigned int readMegaMasked(uint register_name, mask_mode, mask_value);
+unsigned int readMegaMasked(unsigned int register_name,
+                            unsigned int mask_mode,
+                            unsigned int mask_value);
 
 #endif // DEFINED _MEGA2560_PORTS_H

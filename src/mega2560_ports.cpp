@@ -123,7 +123,7 @@ unsigned int readMega(unsigned int reg_name) {
       default : {
          Serial.println("ERROR: BAD reg_name VALUE TO __FUNC__, __LINE__");
          Serial.print("reg_name value: "); Serial.println(reg_name);
-         debugPorts();
+         debugRegisters();
          return MASK_FAILURE;
       }
    } // End switch (reg_name)
@@ -174,10 +174,9 @@ unsigned int writeMega(unsigned int reg_name, unsigned int data_byte) {
       }
       default : {
          Serial.println("ERROR: BAD reg_name VALUE TO __FUNC__, __LINE__");
-         debugPorts();
+         debugRegisters();
          return MASK_FAILURE;
       }
    } // End switch (reg_name)
 } // End writeMega()
 
-#endif // DEFINED AVRMEGA_PORTS_H

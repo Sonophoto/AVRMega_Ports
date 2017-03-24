@@ -27,7 +27,6 @@
   * ******************************************************************************
   */
 
-#include <Arduino.h>
 #include "mega2560_ports.h"
 
 #ifndef _MEGA2560_DEBUG_H
@@ -109,7 +108,7 @@ void debugRegister(unsigned int reg_name) {
       Serial.println(PIN_FLAG & MASK_REG_FLAG,  BIN);
       break;
    default:
-      debugPorts();
+      debugRegisters();
       break;
    }
    Serial.println("End register diagnostics");
