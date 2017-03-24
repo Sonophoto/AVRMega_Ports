@@ -31,7 +31,7 @@
 #include "avrmega_ports.h"
 
 #ifndef _AVRMEGA_DEBUG_H
-#define _AVRMEGA_DEBUG_H
+   #define _AVRMEGA_DEBUG_H
 
 /* ******************************************************************************
  * DEBUG REGISTER FUNCTIONS
