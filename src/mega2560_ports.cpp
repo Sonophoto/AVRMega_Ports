@@ -28,9 +28,7 @@
   */
 
 #include <Arduino.h>            // ATmega2560 PORTx variables
-#include "mega2560_defines.h"   // Semantic names for our "Registers"
 #include "mega2560_ports.h"     // Prototypes for our API functions
-#include "mega2560_debug.h"     // Implementation of our debugging functions
 
 // TODO:
 /* ******************************************************************************
