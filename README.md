@@ -5,8 +5,16 @@ Library for fast access to Arduino ATmega2560 digital pins 22-53
 
 Update 23-Mar-2017
 
-   **** CURRENTLY THIS IS BROKEN **** 
-   **** BUT I AM WORKING HARD TO GET THIS TO 1.0.0-beta ***
+Massive reorganization results in usable code:
+
+     USAGE:
+ 
+          1. Move entire project directory into you Arduino libraries directory
+
+          2. #include mega2560_ports.h
+
+          3. Use the literals and functions to do your thing
+
 
 Reorganized all of the code into a more conventional format after browsing thru
    some of the standard libraries that come with Arduino.
