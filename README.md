@@ -1,5 +1,5 @@
 
-# AVRMega_Ports
+# Mega2560_Ports
 
 Library for fast access to Arduino ATmega2560 digital pins 22-53
 
