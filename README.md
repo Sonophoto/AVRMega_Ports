@@ -9,7 +9,6 @@ You can figure out what I'm doing by looking at the code.
 
 hit me up if you find this, want to use it, and aren't sure what to do next ;-)
 
-
 Update 24-Mar-2017
 ------------------
 
@@ -20,9 +19,6 @@ NOTE: Currently I am still adding and testing functionality but you can use this
 NOTE: This library is built ON a POSIX (unix) system but it will work in ANY Arduino IDE on ANY OS
 
 NOTE: This library is built FOR an "Arduino Mega" AKA AVR ATMega2560. It won't work on any other type of ARDUINO "as-is" but you could use this as an example to build a similar library using the ports available on the hardware you do have. I have zero motivation to do this myself but I am giving you a BSD-2c license to use this code any anyway you see fit! Please Fork! ;-)
-
-
-
 
 Update 23-Mar-2017
 ------------------
@@ -53,6 +49,7 @@ Added a new directory "tests" an Arduino project that runs the test suite.
 Added a libraries.properties file for the arduino archives.
 
 Update 22-Mar-2017
+------------------
 
 Moved the defines and functions into seperate include files, both are required.
 
