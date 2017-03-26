@@ -5,9 +5,16 @@ Library for fast access to Arduino ATmega2560 digital pins 22-53
 
 I'm still working on this but you will find the readMega and writeMega functions are fully tested.
 
-You can figure out what I'm doing by looking at the code. 
+TESTS:
 
-hit me up if you find this, want to use it, and aren't sure what to do next ;-)
+run tests.ino in the tests directory to run all tests. Test output is written to Serial (Serial0) so you will need to run the Serial Monitor (CTRL+Shift+m) to see the output.
+
+DOCS: 
+
+You can figure out what I'm doing by looking at the code. I will write some good docs once it is getting closer to finished.
+
+HELP:
+Need help? Me Too! I need testers! Hit me up if you find this, want to use it, and aren't sure what to do next ;-) I'm available thru github or on twitter (@Sonophoto)
 
 Update 24-Mar-2017
 ------------------
