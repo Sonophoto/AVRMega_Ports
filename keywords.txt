@@ -1,5 +1,5 @@
 #********************************************************
-# Syntax Coloring Map For AVRMega_Ports
+# Syntax Coloring Map For Mega2560_Ports
 
 #********************************************************
 # Datatypes
