@@ -3,7 +3,29 @@
 
 Library for fast access to Arduino ATmega2560 digital pins 22-53
 
+I'm still working on this but you will find the readMega and writeMega functions are fully tested.
+
+You can figure out what I'm doing by looking at the code. 
+
+hit me up if you find this, want to use it, and aren't sure what to do next ;-)
+
+
+Update 24-Mar-2017
+------------------
+
+Finally got the fundamental structure of the library setup and working.
+
+NOTE: Currently I am still adding and testing functionality but you can use this right now.
+
+NOTE: This library is built ON a POSIX (unix) system but it will work in ANY Arduino IDE on ANY OS
+
+NOTE: This library is built FOR an "Arduino Mega" AKA AVR ATMega2560. It won't work on any other type of ARDUINO "as-is" but you could use this as an example to build a similar library using the ports available on the hardware you do have. I have zero motivation to do this myself but I am giving you a BSD-2c license to use this code any anyway you see fit! Please Fork! ;-)
+
+
+
+
 Update 23-Mar-2017
+------------------
 
 This library is currently under development but you can use it right now!
 
@@ -40,6 +62,7 @@ This is set up as a single file include system so the functions are defined in t
  
 
 Update 19-Mar-2017
+------------------
 
 I'm still working on this but you will find the readMega and writeMega functions are fully tested.
 
