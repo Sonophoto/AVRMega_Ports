@@ -27,7 +27,6 @@
   * ******************************************************************************
   */
 
-#include <Arduino.h>            // ATmega2560 PORTx variables
 #include "mega2560_ports.h"     // Prototypes for our API functions
 
 // TODO:
@@ -36,7 +35,7 @@
  * ******************************************************************************
  */
 
-unsigned int pinModeFast(unsigned int pin_number,
+/*unsigned int pinModeFast(unsigned int pin_number,
                          unsigned int mask_mode)
 {
    return MASK_FAILURE;
@@ -52,13 +51,14 @@ unsigned int writeMegaFast(unsigned int pin_number,
 {
    return MASK_FAILURE;
 }
-
+*/
 // TODO:
 /* ******************************************************************************
  * ADVANCED API FUNCTION IMPLEMENTATIONS
  * ******************************************************************************
  */
 
+/*
 // FUNCTION: readMega() Reads register reg_name.
 unsigned int readMegaMasked(unsigned int register_name,
                             unsigned int mask_mode,
@@ -75,6 +75,7 @@ unsigned int writeMegaMasked(unsigned int register_name,
    return MASK_FAILURE;
 }
 
+*/
 
 // FINISHED:
 /* ******************************************************************************
@@ -177,4 +178,85 @@ unsigned int writeMega(unsigned int reg_name, unsigned int data_byte) {
       }
    } // End switch (reg_name)
 } // End writeMega()
+
+
+// FUNCTION: debugRegisters() Prints the values of Registers _X, _Y, _Z, _CTRL and _FLAG on Serial0
+// Returns: void
+// TODO: Re-Write to return a formatted string.
+void debugRegisters() {
+Serial.print("\n==============================================\n");
+Serial.println("Begin register diagnostics");
+Serial.println("Output Register, Direction Register, Input Register");
+Serial.println("Register X");
+Serial.println(REG_X, BIN);
+Serial.println(DDR_X, BIN);
+Serial.println(PIN_X, BIN);
+Serial.println("Register Y");
+Serial.println(REG_Y, BIN);
+Serial.println(DDR_Y, BIN);
+Serial.println(PIN_Y, BIN);
+Serial.println("Register Z");
+Serial.println(REG_Z, BIN);
+Serial.println(DDR_Z, BIN);
+Serial.println(PIN_Z, BIN);
+Serial.println("Flags Register");
+Serial.println(REG_FLAG & MASK_REG_FLAG, BIN);
+Serial.println(DDR_FLAG & MASK_REG_FLAG, BIN);
+Serial.println(PIN_FLAG & MASK_REG_FLAG,  BIN);
+Serial.println("Control Register");
+Serial.println(REG_CTRL & MASK_REG_CTRL, BIN);
+Serial.println(DDR_CTRL & MASK_REG_CTRL, BIN);
+Serial.println(PIN_CTRL & MASK_REG_CTRL, BIN);
+Serial.println("End register diagnostics");
+Serial.print(  "==============================================\n\n");
+} // End debugRegisters()
+
+
+// FUNCTION: debugRegister() Prints the value of register reg_name on Serial0
+// Returns: void
+// TODO: Re-Write to return a formatted string.
+void debugRegister(unsigned int reg_name) {
+   Serial.print("\n==============================================\n");
+   Serial.println("Begin register diagnostics");
+   Serial.println("Output Register, Direction Register, Input Register");
+   switch(reg_name) {
+   case REGISTER_X:
+      Serial.println("Register X");
+      Serial.println(REG_X, BIN);
+      Serial.println(DDR_X, BIN);
+      Serial.println(PIN_X, BIN);
+      break;
+   case REGISTER_Y:
+      Serial.println("Register Y");
+      Serial.println(REG_Y, BIN);
+      Serial.println(DDR_Y, BIN);
+      Serial.println(PIN_Y, BIN);
+      break;
+   case REGISTER_Z:
+      Serial.println("Register Z");
+      Serial.println(REG_Z, BIN);
+      Serial.println(DDR_Z, BIN);
+      Serial.println(PIN_Z, BIN);
+      break;
+   case REGISTER_CTRL:
+      Serial.println("Control Register");
+      Serial.println(REG_CTRL & MASK_REG_CTRL, BIN);
+      Serial.println(DDR_CTRL & MASK_REG_CTRL, BIN);
+      Serial.println(PIN_CTRL & MASK_REG_CTRL, BIN);
+      break;
+   case REGISTER_FLAG:
+      Serial.println("Flags Register");
+      Serial.println(REG_FLAG & MASK_REG_FLAG, BIN);
+      Serial.println(DDR_FLAG & MASK_REG_FLAG, BIN);
+      Serial.println(PIN_FLAG & MASK_REG_FLAG,  BIN);
+      break;
+   default:
+      debugRegisters();
+      break;
+   }
+   Serial.println("End register diagnostics");
+   Serial.print(  "==============================================\n\n");
+} // End debugRegister()
+
+
 
