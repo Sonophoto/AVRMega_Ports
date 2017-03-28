@@ -42,7 +42,9 @@
  * DEBUGGING BITS
  * ******************************************************************************
  */
-// #define DEBUG_MEGA2560_REGISTERS
+// #define DEBUG_MEGA2560_READWRITE 
+// #define DEBUG_MEGA2560_WRITEMASKED
+// #define DEBUG_MEGA2560_READMASKED
 // #define DEBUG_MEGA2560_TIMERS
 
 /* ******************************************************************************
@@ -132,8 +134,8 @@ void loop() {
  */
    unsigned int test_status = 1; // We only need/want to init this once
 
-   Serial.println("Beginning Counter Test Suite on Mega2560_Ports");
    Serial.println("");
+   Serial.println("Beginning Tests of readMega() and writeMega()");
 
    for (unsigned int rindex = 0; rindex < REGISTER_LIST_SIZE; rindex++) {
       Serial.print("Testing Register number: "); Serial.println(register_list[rindex]);
@@ -150,7 +152,7 @@ void loop() {
                write_count++;
                }
                read_var = readMega(register_list[rindex]);
-#ifdef DEBUG_MEGA2560_REGISTERS
+#ifdef DEBUG_MEGA2560_READWRITE
                Serial.print("write_var is: "); Serial.println(write_var, BIN);
                Serial.print(" read_var is: "); Serial.println(read_var, BIN);
                debugRegister(register_list[rindex]);
@@ -175,7 +177,7 @@ void loop() {
                write_count++;
                }
                read_var = readMega(register_list[rindex]);
-#ifdef DEBUG_MEGA2560_REGISTERS
+#ifdef DEBUG_MEGA2560_READWRITE
                Serial.print("write_var is: "); Serial.println(write_var, BIN);
                Serial.print(" read_var is: "); Serial.println(read_var, BIN);
                debugRegister(register_list[rindex]);
@@ -197,10 +199,8 @@ void loop() {
 /* ******************************************************************************
  * BEGIN writeMegaMasked() TEST SECTION
  */
-
-   Serial.println("Beginning Masked read/write Test Suite on Mega2560_Ports");
    Serial.println("");
-
+   Serial.println("Beginning Tests of writeMegaMasked()");
 
    for (unsigned int rindex = 0; rindex < REGISTER_LIST_SIZE; rindex++) {
       Serial.print("Testing Register number: "); Serial.println(register_list[rindex]);
@@ -211,20 +211,24 @@ void loop() {
          case REGISTER_Y:
          case REGISTER_Z: {
             for (unsigned int cindex = 0; cindex < BYTE_COUNTER_SIZE; cindex++) {
-               for (unsigned int mindex = 0; mindex < mask_mode_list[MASK_MODE_LIST_SIZE]; mindex++) {
-
-                  masked_write_var = switchMaskMode(mask_mode_list[MASK_MODE_LIST_SIZE], MASK_MODE_TESTING, byte_counter[cindex]);
+               for (unsigned int mindex = 0; mindex < MASK_MODE_LIST_SIZE; mindex++) {
+                  masked_write_var = switchMaskMode(mask_mode_list[mindex], MASK_MODE_TESTING, byte_counter[cindex]);
+                  Serial.print("masked_write_var: "); Serial.println(masked_write_var, BIN);
                   {
                      (void)writeMegaMasked(register_list[rindex], mask_mode_list[mindex], MASK_MODE_TESTING, byte_counter[cindex]);
                      write_count++;
                   }
                   read_var = readMega(register_list[rindex]);
-
+#ifdef DEBUG_MEGA2560_WRITEMASKED
+               Serial.print("masked_write_var is: "); Serial.println(masked_write_var, BIN);
+               Serial.print(" read_var is: "); Serial.println(read_var, BIN);
+               debugRegister(register_list[rindex]);
+#endif 
                   if ( !(masked_write_var == read_var) ) {
                      test_status = 0;
                      Serial.println("FAILED TEST AT __FUNC__, __LINE__");
-                     Serial.print("write_var is: "); Serial.println(write_var, BIN);
-                     Serial.print(" read_var is: "); Serial.println(read_var, BIN);
+                     Serial.print("masked_write_var is: "); Serial.println(masked_write_var, BIN);
+                     Serial.print("        read_var is: "); Serial.println(read_var, BIN);
                      debugRegister(register_list[rindex]);
                   }
                } // End for (mindex)
@@ -236,19 +240,25 @@ void loop() {
          case REGISTER_CTRL:
          case REGISTER_FLAG: {
             for (unsigned int cindex = 0; cindex < NIBBLE_COUNTER_SIZE; cindex++) {
-               for (unsigned int mindex = 0; mindex < mask_mode_list[MASK_MODE_LIST_SIZE]; mindex++) {
+               for (unsigned int mindex = 0; mindex < MASK_MODE_LIST_SIZE; mindex++) {
 
-                  masked_write_var = switchMaskMode(mask_mode_list[MASK_MODE_LIST_SIZE], MASK_MODE_TESTING, nibble_counter[cindex]);
+                  masked_write_var = switchMaskMode(mask_mode_list[mindex], MASK_MODE_TESTING, nibble_counter[cindex]);
+                  Serial.print("masked_write_var: "); Serial.println(masked_write_var, BIN);
                   {
                      (void)writeMegaMasked(register_list[rindex], mask_mode_list[mindex], MASK_MODE_TESTING, nibble_counter[cindex]);
                      write_count++;
                   }
-
+                  read_var = readMega(register_list[rindex]);
+#ifdef DEBUG_MEGA2560_WRITEMASKED
+               Serial.print("masked_write_var is: "); Serial.println(masked_write_var, BIN);
+               Serial.print(" read_var is: "); Serial.println(read_var, BIN);
+               debugRegister(register_list[rindex]);
+#endif 
                   if ( !(masked_write_var == read_var) ) {
                      test_status = 0;
                      Serial.println("FAILED TEST AT __FUNC__, __LINE__");
-                     Serial.print("write_var is: "); Serial.println(write_var, BIN);
-                     Serial.print(" read_var is: "); Serial.println(read_var, BIN);
+                     Serial.print("masked_write_var is: "); Serial.println(masked_write_var, BIN);
+                     Serial.print("        read_var is: "); Serial.println(read_var, BIN);
                      debugRegister(register_list[rindex]);
                   }
                } // End for (mindex)
@@ -264,6 +274,8 @@ void loop() {
  */
 
    if (test_status) {
+      Serial.println("");
+      Serial.println("****** TESTING SUMMARY ******");
       Serial.println("ALL TESTS PASSED");
       Serial.print("Number of writes: "); Serial.println(write_count);
    }
@@ -281,6 +293,13 @@ void loop() {
 // FUNCTION: Acccepts a mask_mode and a data_value, performs mask_mode on data_value
 // RETURNS:  Masked data_value
 unsigned int switchMaskMode(unsigned int mask_mode, unsigned int mask_value, unsigned int data_value) {
+
+      Serial.println();
+      Serial.println("Entering switchMaskMode()");
+      Serial.print(" mask_mode: "); Serial.println(mask_mode, BIN);
+      Serial.print("mask_value: "); Serial.println(mask_value, BIN);
+      Serial.print("data_value: "); Serial.println(data_value, BIN);
+  
    switch(mask_mode) {
       case MASK_MODE_AND: {
          return (data_value &= mask_value);
