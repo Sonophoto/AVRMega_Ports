@@ -16,6 +16,12 @@ You can figure out what I'm doing by looking at the code. I will write some good
 HELP:
 Need help? Me Too! I need testers! Hit me up if you find this, want to use it, and aren't sure what to do next ;-) I'm available thru github or on twitter (@Sonophoto)
 
+Update 26-Mar-2017
+------------------
+
+Started work on writeMegaMasked() and its test; coming right along but I just slammed it out and it still has issues as I run out of time for the day.
+
+
 Update 24-Mar-2017
 ------------------
 
