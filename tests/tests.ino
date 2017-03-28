@@ -47,8 +47,16 @@
 
 /* ******************************************************************************
  * We use these for our test and demo functions
+
  * ******************************************************************************
  */
+
+
+#define MASK_MODE_TESTING 170
+#define MASK_MODE_LIST_SIZE 6
+unsigned int mask_mode_list[MASK_MODE_LIST_SIZE] = {
+   MASK_MODE_AND, MASK_MODE_OR, MASK_MODE_XOR, MASK_MODE_NOT, MASK_MODE_NAND, MASK_MODE_NOR
+};
 
 #define REGISTER_LIST_SIZE 5
 unsigned int register_list[REGISTER_LIST_SIZE] = {
@@ -98,6 +106,9 @@ unsigned int byte_counter[BYTE_COUNTER_SIZE] = {
 };
 
 
+// FUNCTION: Acccepts a mask_mode and a data_value, performs mask_mode on data_value
+// RETURNS:  Masked data_value
+unsigned int switchMaskMode(unsigned int mask_mode, unsigned int data_value);
 
 /* ******************************************************************************
  * Arduino Setup()
@@ -114,11 +125,14 @@ void setup() {
  * ******************************************************************************
  */
 void loop() {
+   unsigned long write_count = 0; // keep track of how many "write" we do
 
-   unsigned int test_status = 1;
-   unsigned long write_count = 0;
+/* ******************************************************************************
+ * BEGIN readMega() and writeMega() TEST SECTION
+ */
+   unsigned int test_status = 1; // We only need/want to init this once
 
-   Serial.println("Beginning Counter Test Suite on AVR Mega 2560 Ports");
+   Serial.println("Beginning Counter Test Suite on Mega2560_Ports");
    Serial.println("");
 
    for (unsigned int rindex = 0; rindex < REGISTER_LIST_SIZE; rindex++) {
@@ -179,6 +193,76 @@ void loop() {
       } // End switch (register_list[rindex])
    } // End for(rindex)
 
+
+/* ******************************************************************************
+ * BEGIN writeMegaMasked() TEST SECTION
+ */
+
+   Serial.println("Beginning Masked read/write Test Suite on Mega2560_Ports");
+   Serial.println("");
+
+
+   for (unsigned int rindex = 0; rindex < REGISTER_LIST_SIZE; rindex++) {
+      Serial.print("Testing Register number: "); Serial.println(register_list[rindex]);
+      unsigned int write_var, read_var, masked_write_var = 0;
+
+      switch (register_list[rindex]) {
+         case REGISTER_X:
+         case REGISTER_Y:
+         case REGISTER_Z: {
+            for (unsigned int cindex = 0; cindex < BYTE_COUNTER_SIZE; cindex++) {
+               for (unsigned int mindex = 0; mindex < mask_mode_list[MASK_MODE_LIST_SIZE]; mindex++) {
+
+                  masked_write_var = switchMaskMode(mask_mode_list[MASK_MODE_LIST_SIZE], MASK_MODE_TESTING, byte_counter[cindex]);
+                  {
+                     (void)writeMegaMasked(register_list[rindex], mask_mode_list[mindex], MASK_MODE_TESTING, byte_counter[cindex]);
+                     write_count++;
+                  }
+                  read_var = readMega(register_list[rindex]);
+
+                  if ( !(masked_write_var == read_var) ) {
+                     test_status = 0;
+                     Serial.println("FAILED TEST AT __FUNC__, __LINE__");
+                     Serial.print("write_var is: "); Serial.println(write_var, BIN);
+                     Serial.print(" read_var is: "); Serial.println(read_var, BIN);
+                     debugRegister(register_list[rindex]);
+                  }
+               } // End for (mindex)
+            } // End for (cindex)
+            break;
+
+         }// End 8 bit cases
+ 
+         case REGISTER_CTRL:
+         case REGISTER_FLAG: {
+            for (unsigned int cindex = 0; cindex < NIBBLE_COUNTER_SIZE; cindex++) {
+               for (unsigned int mindex = 0; mindex < mask_mode_list[MASK_MODE_LIST_SIZE]; mindex++) {
+
+                  masked_write_var = switchMaskMode(mask_mode_list[MASK_MODE_LIST_SIZE], MASK_MODE_TESTING, nibble_counter[cindex]);
+                  {
+                     (void)writeMegaMasked(register_list[rindex], mask_mode_list[mindex], MASK_MODE_TESTING, nibble_counter[cindex]);
+                     write_count++;
+                  }
+
+                  if ( !(masked_write_var == read_var) ) {
+                     test_status = 0;
+                     Serial.println("FAILED TEST AT __FUNC__, __LINE__");
+                     Serial.print("write_var is: "); Serial.println(write_var, BIN);
+                     Serial.print(" read_var is: "); Serial.println(read_var, BIN);
+                     debugRegister(register_list[rindex]);
+                  }
+               } // End for (mindex)
+            } // End for (cindex)
+            break;
+         } // End 4 bit cases
+      } // End switch (register_list[rindex])
+   } // End for(rindex)
+
+
+/* ***********************************************************************************
+ * End of Tests, evaluate results
+ */
+
    if (test_status) {
       Serial.println("ALL TESTS PASSED");
       Serial.print("Number of writes: "); Serial.println(write_count);
@@ -186,5 +270,46 @@ void loop() {
    delay(15000);
 } // End loop()
 
+
+
+
+
+/* ***********************************************************************************
+ * 
+ */
+
+// FUNCTION: Acccepts a mask_mode and a data_value, performs mask_mode on data_value
+// RETURNS:  Masked data_value
+unsigned int switchMaskMode(unsigned int mask_mode, unsigned int mask_value, unsigned int data_value) {
+   switch(mask_mode) {
+      case MASK_MODE_AND: {
+         return (data_value &= mask_value);
+         break;
+      }
+      case MASK_MODE_OR: {
+         data_value |= mask_value;
+         break;
+      }
+      case MASK_MODE_XOR: {
+         data_value ^= mask_value;
+         break;
+      }
+      case MASK_MODE_NOT: {
+        data_value != data_value;
+         break;
+      }
+      case MASK_MODE_NAND: {
+         return ( (!data_value) & (mask_value));
+         break;
+      }
+      case MASK_MODE_NOR: {
+         return ( (!data_value) | (mask_value));
+         break;
+      }
+      default : {
+         return MASK_FAILURE;
+      }
+   } // End switch (mask_mode)
+}
 
 
