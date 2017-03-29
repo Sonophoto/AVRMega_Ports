@@ -30,3 +30,13 @@
 
 # Zip Files
 *.zip
+
+# Analyzer Files
+*.logicdata
+
+# Screen Captures
+*.png
+*.jpg
+*.bmp
+*.tiff
+
