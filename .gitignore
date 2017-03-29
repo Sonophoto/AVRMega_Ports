@@ -13,10 +13,6 @@
 *.dylib
 *.dll
 
-# Fortran module files
-*.mod
-*.smod
-
 # Compiled Static libraries
 *.lai
 *.la
@@ -33,6 +29,10 @@
 
 # Analyzer Files
 *.logicdata
+*.txt
+
+# Vim swap files
+*.swp
 
 # Screen Captures
 *.png
