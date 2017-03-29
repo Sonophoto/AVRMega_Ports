@@ -35,19 +35,19 @@
  * ******************************************************************************
  */
 
-/*unsigned int pinModeFast(unsigned int pin_number,
-                         unsigned int mask_mode)
+/*unsigned char pinModeFast(unsigned char pin_number,
+                         unsigned char mask_mode)
 {
    return MASK_FAILURE;
 }
 
-unsigned int readMegaFast(unsigned int pin_number)
+unsigned char readMegaFast(unsigned char pin_number)
 {
    return MASK_FAILURE;
 }
 
-unsigned int writeMegaFast(unsigned int pin_number,
-                           unsigned int mask_pin)
+unsigned char writeMegaFast(unsigned char pin_number,
+                           unsigned char mask_pin)
 {
    return MASK_FAILURE;
 }
@@ -60,8 +60,9 @@ unsigned int writeMegaFast(unsigned int pin_number,
 
 // FUNCTION: readMegaMasked() Reads data_read from register_name.
 // Returns: data_read after applying mask_value according to mask_mode 
-unsigned int readMegaMasked(unsigned int register_name, unsigned int mask_mode, unsigned int mask_value) {
-   unsigned int data_read = 0;
+unsigned char readMegaMasked(unsigned char register_name, unsigned char mask_mode, unsigned char mask_value) {
+   unsigned char data_read = 0;
+   unsigned char data_masked = 0;
 
    switch (register_name) { 
       case REGISTER_X: {
@@ -103,27 +104,33 @@ unsigned int readMegaMasked(unsigned int register_name, unsigned int mask_mode, 
    } // End switch (reg_name)
    switch(mask_mode) {
       case MASK_MODE_AND: {
-         return data_read &= mask_value;
+         data_masked = (data_value & mask_value);
+         return data_masked;
          break;
       }
       case MASK_MODE_OR: {
-         return data_read |= mask_value;
+         data_masked = (data_value | mask_value);
+         return data_masked;
          break;
       }
       case MASK_MODE_XOR: {
-         return data_read ^= mask_value;
+         data_masked = (data_value ^ mask_value);
+         return data_masked;
          break;
       }
       case MASK_MODE_NOT: {
-         return (!data_read);
+         data_masked = ((~data_value) & MASK_FULL);
+         return data_masked;
          break;
       }
       case MASK_MODE_NAND: {
-         return data_read = ( (!data_read) & (mask_value));
+         data_masked = ( ~((data_value) & (mask_value)) );
+         return data_masked;
          break;
       }
       case MASK_MODE_NOR: {
-         return data_read = ( (!data_read) | (mask_value));
+         data_masked = ( ~((data_value) | (mask_value)) );
+         return data_masked;
          break;
       }
       default : {
@@ -132,36 +139,37 @@ unsigned int readMegaMasked(unsigned int register_name, unsigned int mask_mode, 
    } // End switch (mask_mode)
 }
 
-// FUNCTION: readMega() Reads register reg_name.
-unsigned int writeMegaMasked(unsigned int register_name,
-                             unsigned int mask_mode,
-                             unsigned int mask_value,
-                             unsigned int data_value) {
-   unsigned int data_write = 0;
+// FUNCTION: writeMegaMasked()
+unsigned char writeMegaMasked(unsigned char register_name,
+                             unsigned char mask_mode,
+                             unsigned char mask_value,
+                             unsigned char data_value) {
+   unsigned char data_write = 0;
+   unsigned char data_masked = 0;
 
    switch(mask_mode) {
       case MASK_MODE_AND: {
-         data_value &= mask_value;
+         data_masked = (data_value & mask_value);
          break;
       }
       case MASK_MODE_OR: {
-         data_value |= mask_value;
+         data_masked = (data_value | mask_value);
          break;
       }
       case MASK_MODE_XOR: {
-         data_value ^= mask_value;
+         data_masked = (data_value ^ mask_value);
          break;
       }
       case MASK_MODE_NOT: {
-        data_value != data_value;
+         data_masked = ((~data_value) & MASK_FULL);
          break;
       }
       case MASK_MODE_NAND: {
-         data_value = ( (!data_value) & (mask_value));
+         data_masked = ( ~((data_value) & (mask_value)) );
          break;
       }
       case MASK_MODE_NOR: {
-         data_value = ( (!data_value) | (mask_value));
+         data_masked = ( ~((data_value) | (mask_value)) );
          break;
       }
       default : {
@@ -171,35 +179,35 @@ unsigned int writeMegaMasked(unsigned int register_name,
 
    switch (register_name) {
       case REGISTER_X: {
-         data_write = ( (data_value) & (MASK_REG_X) ); // Trim data with register's mask
+         data_write = ( (data_masked) & (MASK_REG_X) ); // Trim data with register's mask
          DDR_X |= (MASK_REG_X);                       // Set our data register to source output
          REG_X ^= REG_X;                              // Clear register
          REG_X |= data_write;                         // write ONLY our bits to register
          return MASK_SUCCESS;
       }
       case REGISTER_Y: {
-         data_write = ( (data_value) & (MASK_REG_Y) );
+         data_write = ( (data_masked) & (MASK_REG_Y) );
          DDR_Y |= (MASK_REG_Y);
          REG_Y ^= REG_Y;
          REG_Y |= data_write;
          return MASK_SUCCESS;
       }
       case REGISTER_Z: {
-         data_write = ( (data_value) & (MASK_REG_Z) );
+         data_write = ( (data_masked) & (MASK_REG_Z) );
          DDR_Z |= (MASK_REG_Z);
          REG_Z ^= REG_Z;
          REG_Z |= data_write;
          return MASK_SUCCESS;
       }
       case REGISTER_CTRL: {
-         data_write = ( (data_value) & (MASK_REG_CTRL) ); // Trim data with register's mask
+         data_write = ( (data_masked) & (MASK_REG_CTRL) ); // Trim data with register's mask
          DDR_CTRL |= (MASK_REG_CTRL);                    // Set our data register to source output
          REG_CTRL &= ~(MASK_REG_CTRL);                   // Clear ONLY our bits, not entire register ;-)
          REG_CTRL |= data_write;                         // write ONLY our bits to register
          return MASK_SUCCESS;
       }
       case REGISTER_FLAG: {
-         data_write = ( (data_value) & (MASK_REG_FLAG) );
+         data_write = ( (data_masked) & (MASK_REG_FLAG) );
          DDR_FLAG |= (MASK_REG_FLAG);
          REG_FLAG &= ~(MASK_REG_FLAG);                   // Clear ONLY our bits, not entire register
          REG_FLAG |= data_write;                         // write ONLY our bits to register
@@ -224,8 +232,8 @@ unsigned int writeMegaMasked(unsigned int register_name,
 
 // FUNCTION: readMega() Sets reg_name to input, sets data_read to port value.
 // Returns: data_read.
-unsigned int readMega(unsigned int reg_name) {
-   unsigned int data_read = 0;
+unsigned char readMega(unsigned char reg_name) {
+   unsigned char data_read = 0;
 
    switch (reg_name) { 
       case REGISTER_X: {
@@ -271,8 +279,8 @@ unsigned int readMega(unsigned int reg_name) {
 
 // FUNCTION: writeMega() Writes the given data_byte to the given reg_name.
 // Returns: MASK_SUCCESS on SUCCESS; MASK_FAILURE on FAILURE
-unsigned int writeMega(unsigned int reg_name, unsigned int data_byte) {
-   unsigned int data_write = 0;
+unsigned char writeMega(unsigned char reg_name, unsigned char data_byte) {
+   unsigned char data_write = 0;
 
    switch (reg_name) {
       case REGISTER_X: {
@@ -354,7 +362,7 @@ Serial.print(  "==============================================\n\n");
 // FUNCTION: debugRegister() Prints the value of register reg_name on Serial0
 // Returns: void
 // TODO: Re-Write to return a formatted string.
-void debugRegister(unsigned int reg_name) {
+void debugRegister(unsigned char reg_name) {
    Serial.print("\n==============================================\n");
    Serial.println("Begin register diagnostics");
    Serial.println("Output Register, Direction Register, Input Register");
