@@ -29,6 +29,7 @@
 
 # Analyzer Files
 *.logicdata
+*.logicsettings
 *.txt
 
 # Vim swap files
