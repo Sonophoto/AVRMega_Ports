@@ -42,7 +42,7 @@
  * DEBUGGING BITS
  * ******************************************************************************
  */
-// #define DEBUG_MEGA2560_READWRITE 
+#define DEBUG_MEGA2560_READWRITE 
 // #define DEBUG_MEGA2560_WRITEMASKED
 // #define DEBUG_MEGA2560_READMASKED
 // #define DEBUG_MEGA2560_TIMERS
@@ -67,13 +67,13 @@ REGISTER_X, REGISTER_Y, REGISTER_Z, REGISTER_CTRL, REGISTER_FLAG
 
 #define NIBBLE_COUNTER_SIZE 16 
 unsigned char nibble_counter[NIBBLE_COUNTER_SIZE] = {
-   0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
-   0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F
+         0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+   0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x00
 };
 
 #define BYTE_COUNTER_SIZE 256
 unsigned char byte_counter[BYTE_COUNTER_SIZE] = {
-     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+           0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
      0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
      0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
      0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
@@ -104,7 +104,7 @@ unsigned char byte_counter[BYTE_COUNTER_SIZE] = {
      0xe0, 0xe1, 0xe2, 0xe3, 0xe4, 0xe5, 0xe6, 0xe7,
      0xe8, 0xe9, 0xea, 0xeb, 0xec, 0xed, 0xee, 0xef,
      0xf0, 0xf1, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6, 0xf7,
-     0xf8, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff
+     0xf8, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff, 0x00
 };
 
 
@@ -137,7 +137,7 @@ void loop() {
    Serial.println("");
    Serial.println("Beginning Tests of readMega() and writeMega()");
 
-   for (unsigned char rindex = 0; rindex < REGISTER_LIST_SIZE; rindex++) {
+   for (unsigned int rindex = 0; rindex < REGISTER_LIST_SIZE; rindex++) {
       Serial.print("Testing Register number: "); Serial.println(register_list[rindex]);
       unsigned char write_var, read_var = 0;
 
@@ -145,7 +145,7 @@ void loop() {
          case REGISTER_X:
          case REGISTER_Y:
          case REGISTER_Z: {
-            for (unsigned char cindex = 0; cindex < BYTE_COUNTER_SIZE; cindex++) {
+            for (unsigned int cindex = 0; cindex < BYTE_COUNTER_SIZE; cindex++) {
                write_var = byte_counter[cindex];
                {
                (void)writeMega(register_list[rindex], byte_counter[cindex]);
@@ -170,8 +170,8 @@ void loop() {
   
          case REGISTER_CTRL:
          case REGISTER_FLAG: {
-            for (unsigned char cindex = 0; cindex < NIBBLE_COUNTER_SIZE; cindex++) {
-               write_var = byte_counter[cindex];
+            for (unsigned int cindex = 0; cindex < NIBBLE_COUNTER_SIZE; cindex++) {
+               write_var = nibble_counter[cindex];
                {
                (void)writeMega(register_list[rindex], nibble_counter[cindex]);
                write_count++;
@@ -198,7 +198,6 @@ void loop() {
 
 /* ******************************************************************************
  * BEGIN writeMegaMasked() TEST SECTION
- */
    Serial.println("");
    Serial.println("Beginning Tests of writeMegaMasked()");
 
@@ -269,7 +268,7 @@ void loop() {
          } // End 4 bit cases
       } // End switch (register_list[rindex])
    } // End for(rindex)
-
+*/ // COMMENT OUT writeMegaMasked
 
 /* ***********************************************************************************
  * End of Tests, evaluate results
