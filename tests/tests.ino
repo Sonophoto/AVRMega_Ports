@@ -42,8 +42,8 @@
  * DEBUGGING BITS
  * ******************************************************************************
  */
-#define DEBUG_MEGA2560_READWRITE 
-// #define DEBUG_MEGA2560_WRITEMASKED
+// #define DEBUG_MEGA2560_READWRITE 
+#define DEBUG_MEGA2560_WRITEMASKED
 // #define DEBUG_MEGA2560_READMASKED
 // #define DEBUG_MEGA2560_TIMERS
 
@@ -131,7 +131,7 @@ void loop() {
 
 /* ******************************************************************************
  * BEGIN readMega() and writeMega() TEST SECTION
- */
+   
    unsigned char test_status = 1; // We only need/want to init this once
 
    Serial.println("");
@@ -194,10 +194,13 @@ void loop() {
          } // end 4 bit cases
       } // End switch (register_list[rindex])
    } // End for(rindex)
+*/ // COMMENTING readMega() and writeMega() test
 
 
 /* ******************************************************************************
  * BEGIN writeMegaMasked() TEST SECTION
+*/ // COMMENT OUT writeMegaMasked
+
    Serial.println("");
    Serial.println("Beginning Tests of writeMegaMasked()");
 
@@ -268,7 +271,6 @@ void loop() {
          } // End 4 bit cases
       } // End switch (register_list[rindex])
    } // End for(rindex)
-*/ // COMMENT OUT writeMegaMasked
 
 /* ***********************************************************************************
  * End of Tests, evaluate results
