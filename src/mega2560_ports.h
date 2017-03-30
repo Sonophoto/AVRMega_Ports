@@ -28,6 +28,33 @@
   */
 
 
+ /* ******************************************************************************
+Quick Example: (casting (void)writeMega() is explicitly discarding return value.)
+
+unsigned char my_data = B10101010;
+unsigned char their_data = B11001100;
+
+// clear PORTA
+(void)writeMega(REGISTER_X, 0x00);     // or use Arduino B00000000
+
+// write my_data to PORTC
+(void)writeMega(REGISTER_Y, my_data);  // or use Arduino B10101010 
+
+//setup some data to read...
+(void)writeMega(REGISTER_Z, their_data);
+// read PORTL
+my_data = readMega(REGISTER_Z)
+
+// Check that they are the same.
+if (their_data == my_data) { 
+   Serial.println("Hoorah!");
+} else {
+   Serial.println("OOPS!")
+}
+
+  * ******************************************************************************
+  */
+
 #ifndef _MEGA2560_PORTS_H
 #define _MEGA2560_PORTS_H
 
