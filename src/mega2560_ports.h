@@ -124,27 +124,27 @@
 // DOCSTRING:
 // RETURNS:
 // STATUS: TESTED PASSED
-unsigned int readMega(unsigned int register_name);
+unsigned char readMega(unsigned char register_name);
 
 // DOCSTRING:
 // RETURNS:
 // STATUS: TESTED PASSED
-unsigned int writeMega(unsigned int register_name, unsigned int data_byte);
+unsigned char writeMega(unsigned char register_name, unsigned char data_byte);
 
 // DOCSTRING:
 // RETURNS:
 // STATUS: UNIMPLEMENTED UNTESTED
-unsigned int pinModeFast(unsigned int pin_number, unsigned int mask_mode);
+unsigned char pinModeFast(unsigned char pin_number, unsigned char mask_mode);
 
 // DOCSTRING:
 // RETURNS:
 // STATUS: UNIMPLEMENTED UNTESTED
-unsigned int readMegaFast(unsigned int pin_number);
+unsigned char readMegaFast(unsigned char pin_number);
 
 // DOCSTRING:
 // RETURNS:
 // STATUS: UNIMPLEMENTED UNTESTED
-unsigned int writeMegaFast(unsigned int pin_number, unsigned int mask_pin);
+unsigned char writeMegaFast(unsigned char pin_number, unsigned char mask_pin);
 
 
 /* ******************************************************************************
@@ -160,7 +160,7 @@ void debugRegisters();
 // DOCSTRING: Prints the value of register reg_name on Serial0 (USB serial)
 // RETURNS: VOID
 // STATUS: TESTED PASSED
-void debugRegister(unsigned int register_name);
+void debugRegister(unsigned char register_name);
 
 
 // TODO:
@@ -172,16 +172,16 @@ void debugRegister(unsigned int register_name);
 // DOCSTRING:
 // RETURNS:
 // STATUS: UNIMPLEMENTED UNTESTED
-unsigned int writeMegaMasked(unsigned int register_name,
-                             unsigned int mask_mode,
-                             unsigned int mask_value,
-                             unsigned int data_value);
+unsigned char writeMegaMasked(unsigned char register_name,
+                             unsigned char mask_mode,
+                             unsigned char mask_value,
+                             unsigned char data_value);
 
 // DOCSTRING:
 // RETURNS:
 // STATUS: UNIMPLEMENTED UNTESTED
-unsigned int readMegaMasked(unsigned int register_name,
-                            unsigned int mask_mode,
-                            unsigned int mask_value);
+unsigned char readMegaMasked(unsigned char register_name,
+                            unsigned char mask_mode,
+                            unsigned char mask_value);
 
 #endif // DEFINED _MEGA2560_PORTS_H
