@@ -1,1 +1,1 @@
-This directory is only used for building a release zipfile
+Keep the directory in the git repo
