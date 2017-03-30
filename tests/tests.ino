@@ -129,10 +129,10 @@ void setup() {
 void loop() {
    unsigned long write_count = 0; // keep track of how many "write" we do
 
+   unsigned char test_status = 1; // We only need/want to init this once
+
 /* ******************************************************************************
  * BEGIN readMega() and writeMega() TEST SECTION
-   
-   unsigned char test_status = 1; // We only need/want to init this once
 
    Serial.println("");
    Serial.println("Beginning Tests of readMega() and writeMega()");
