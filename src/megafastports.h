@@ -28,7 +28,7 @@
   */
 
 
- /* ******************************************************************************
+ /* TODO: FIX EXAMPLE! ******************************************************************************
 Quick Example: (casting (void)writeMega() is explicitly discarding return value.)
 
 unsigned char my_data = B10101010;
@@ -55,8 +55,8 @@ if (their_data == my_data) {
   * ******************************************************************************
   */
 
-#ifndef _MEGA2560_PORTS_H
-#define _MEGA2560_PORTS_H
+#ifndef _MEGAFASTPORTS_H
+#define _MEGAFASTPORTS_H
 
 #include <Arduino.h> // Source of our PORTx variables we are renaming
 
@@ -151,27 +151,27 @@ if (their_data == my_data) {
 // DOCSTRING:
 // RETURNS:
 // STATUS: TESTED PASSED
-unsigned char readMega(unsigned char register_name);
+unsigned char mfp_Read(unsigned char register_name);
 
 // DOCSTRING:
 // RETURNS:
 // STATUS: TESTED PASSED
-unsigned char writeMega(unsigned char register_name, unsigned char data_byte);
+unsigned char mfp_Write(unsigned char register_name, unsigned char data_byte);
 
 // DOCSTRING:
 // RETURNS:
 // STATUS: UNIMPLEMENTED UNTESTED
-unsigned char pinModeFast(unsigned char pin_number, unsigned char mask_mode);
+unsigned char mfp_Mode(unsigned char pin_number, unsigned char mask_mode);
 
 // DOCSTRING:
 // RETURNS:
 // STATUS: UNIMPLEMENTED UNTESTED
-unsigned char readMegaFast(unsigned char pin_number);
+unsigned char mfp_ReadPin(unsigned char pin_number);
 
 // DOCSTRING:
 // RETURNS:
 // STATUS: UNIMPLEMENTED UNTESTED
-unsigned char writeMegaFast(unsigned char pin_number, unsigned char mask_pin);
+unsigned char mfp_WritePin(unsigned char pin_number, unsigned char mask_pin);
 
 
 /* ******************************************************************************
@@ -199,7 +199,7 @@ void debugRegister(unsigned char register_name);
 // DOCSTRING:
 // RETURNS:
 // STATUS: UNIMPLEMENTED UNTESTED
-unsigned char writeMegaMasked(unsigned char register_name,
+unsigned char mfp_WriteMasked(unsigned char register_name,
                              unsigned char mask_mode,
                              unsigned char mask_value,
                              unsigned char data_value);
@@ -207,8 +207,8 @@ unsigned char writeMegaMasked(unsigned char register_name,
 // DOCSTRING:
 // RETURNS:
 // STATUS: UNIMPLEMENTED UNTESTED
-unsigned char readMegaMasked(unsigned char register_name,
+unsigned char mfp_ReadMasked(unsigned char register_name,
                             unsigned char mask_mode,
                             unsigned char mask_value);
 
-#endif // DEFINED _MEGA2560_PORTS_H
+#endif // DEFINED _MEGAFASTPORTS_H
