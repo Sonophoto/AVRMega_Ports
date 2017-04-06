@@ -27,7 +27,7 @@
   * ******************************************************************************
   */
 
-#include "mega2560_ports.h"     // Prototypes for our API functions
+#include "megafastports.h"     // Prototypes for our API functions
 
 // TODO:
 /* ******************************************************************************
@@ -35,18 +35,18 @@
  * ******************************************************************************
  */
 
-/*unsigned char pinModeFast(unsigned char pin_number,
+/*unsigned char mfp_Mode(unsigned char pin_number,
                          unsigned char mask_mode)
 {
    return MASK_FAILURE;
 }
 
-unsigned char readMegaFast(unsigned char pin_number)
+unsigned char mfp_Read(unsigned char pin_number)
 {
    return MASK_FAILURE;
 }
 
-unsigned char writeMegaFast(unsigned char pin_number,
+unsigned char mfp_Write(unsigned char pin_number,
                            unsigned char mask_pin)
 {
    return MASK_FAILURE;
@@ -60,7 +60,7 @@ unsigned char writeMegaFast(unsigned char pin_number,
 
 // FUNCTION: readMegaMasked() Reads data_read from register_name.
 // Returns: data_read after applying mask_value according to mask_mode 
-unsigned char readMegaMasked(unsigned char register_name, unsigned char mask_mode, unsigned char mask_value) {
+unsigned char mfp_ReadMasked(unsigned char register_name, unsigned char mask_mode, unsigned char mask_value) {
    unsigned char data_read = 0;
    unsigned char data_masked = 0;
 
@@ -140,7 +140,7 @@ unsigned char readMegaMasked(unsigned char register_name, unsigned char mask_mod
 }
 
 // FUNCTION: writeMegaMasked()
-unsigned char writeMegaMasked(unsigned char register_name,
+unsigned char mfp_WriteMasked(unsigned char register_name,
                              unsigned char mask_mode,
                              unsigned char mask_value,
                              unsigned char data_value) {
@@ -232,7 +232,7 @@ unsigned char writeMegaMasked(unsigned char register_name,
 
 // FUNCTION: readMega() Sets reg_name to input, sets data_read to port value.
 // Returns: data_read.
-unsigned char readMega(unsigned char reg_name) {
+unsigned char mfp_Read(unsigned char reg_name) {
    unsigned char data_read = 0;
 
    switch (reg_name) { 
@@ -279,7 +279,7 @@ unsigned char readMega(unsigned char reg_name) {
 
 // FUNCTION: writeMega() Writes the given data_byte to the given reg_name.
 // Returns: MASK_SUCCESS on SUCCESS; MASK_FAILURE on FAILURE
-unsigned char writeMega(unsigned char reg_name, unsigned char data_byte) {
+unsigned char mfp_Write(unsigned char reg_name, unsigned char data_byte) {
    unsigned char data_write = 0;
 
    switch (reg_name) {
@@ -330,7 +330,7 @@ unsigned char writeMega(unsigned char reg_name, unsigned char data_byte) {
 // FUNCTION: debugRegisters() Prints the values of Registers _X, _Y, _Z, _CTRL and _FLAG on Serial0
 // Returns: void
 // TODO: Re-Write to return a formatted string.
-void debugRegisters() {
+void mfp_debugRegisters() {
 Serial.print("\n==============================================\n");
 Serial.println("Begin register diagnostics");
 Serial.println("Output Register, Direction Register, Input Register");
@@ -362,7 +362,7 @@ Serial.print(  "==============================================\n\n");
 // FUNCTION: debugRegister() Prints the value of register reg_name on Serial0
 // Returns: void
 // TODO: Re-Write to return a formatted string.
-void debugRegister(unsigned char reg_name) {
+void mfp_debugRegister(unsigned char reg_name) {
    Serial.print("\n==============================================\n");
    Serial.println("Begin register diagnostics");
    Serial.println("Output Register, Direction Register, Input Register");
