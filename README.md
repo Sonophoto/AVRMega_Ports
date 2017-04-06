@@ -1,5 +1,5 @@
 
-# Mega2560_Ports
+# MegaFastPorts
 
 Library for fast access to Arduino ATmega2560 digital pins 22-53
 
@@ -32,9 +32,17 @@ Help:
 
 Need help? Me Too! I need testers! Hit me up if you find this, want to use it, and aren't sure what to do next ;-) I'm available thru github or on twitter (@Sonophoto)
 
+Update 06-Apr-2017
+------------------
+
+Changing the name after considering future utility and trying to clarify the purpose of the library.
+
+I have reconsidered some of my ideas about how to implement this library and I am going to change some things around over the next few days and try to get to a frozen milestone of functionality. After that I will write up at least one useless example.
+
 
 Update 29-Mar-2017
 ------------------
+
 Did I mention there is already a release with basic functionality? #lol Struggling with time and my favorite part of what I want this library to do... soon...
 
 
