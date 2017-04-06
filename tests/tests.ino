@@ -36,7 +36,7 @@
  * ******************************************************************************
  */
 
-#include <mega2560_ports.h>
+#include <megafastports.h>
 
 /* ******************************************************************************
  * DEBUGGING BITS
@@ -133,6 +133,7 @@ void loop() {
 
 /* ******************************************************************************
  * BEGIN readMega() and writeMega() TEST SECTION
+*/ // COMMENTING readMega() and writeMega() test
 
    Serial.println("");
    Serial.println("Beginning Tests of readMega() and writeMega()");
@@ -148,10 +149,10 @@ void loop() {
             for (unsigned int cindex = 0; cindex < BYTE_COUNTER_SIZE; cindex++) {
                write_var = byte_counter[cindex];
                {
-               (void)writeMega(register_list[rindex], byte_counter[cindex]);
+               (void)mfp_Write(register_list[rindex], byte_counter[cindex]);
                write_count++;
                }
-               read_var = readMega(register_list[rindex]);
+               read_var = mfp_Read(register_list[rindex]);
 #ifdef DEBUG_MEGA2560_READWRITE
                Serial.print("write_var is: "); Serial.println(write_var, BIN);
                Serial.print(" read_var is: "); Serial.println(read_var, BIN);
@@ -173,10 +174,10 @@ void loop() {
             for (unsigned int cindex = 0; cindex < NIBBLE_COUNTER_SIZE; cindex++) {
                write_var = nibble_counter[cindex];
                {
-               (void)writeMega(register_list[rindex], nibble_counter[cindex]);
+               (void)mfp_Write(register_list[rindex], nibble_counter[cindex]);
                write_count++;
                }
-               read_var = readMega(register_list[rindex]);
+               read_var = mfp_Read(register_list[rindex]);
 #ifdef DEBUG_MEGA2560_READWRITE
                Serial.print("write_var is: "); Serial.println(write_var, BIN);
                Serial.print(" read_var is: "); Serial.println(read_var, BIN);
@@ -194,12 +195,10 @@ void loop() {
          } // end 4 bit cases
       } // End switch (register_list[rindex])
    } // End for(rindex)
-*/ // COMMENTING readMega() and writeMega() test
 
 
 /* ******************************************************************************
  * BEGIN writeMegaMasked() TEST SECTION
-*/ // COMMENT OUT writeMegaMasked
 
    Serial.println("");
    Serial.println("Beginning Tests of writeMegaMasked()");
@@ -271,6 +270,7 @@ void loop() {
          } // End 4 bit cases
       } // End switch (register_list[rindex])
    } // End for(rindex)
+*/ // COMMENT OUT writeMegaMasked
 
 /* ***********************************************************************************
  * End of Tests, evaluate results
