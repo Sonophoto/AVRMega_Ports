@@ -14,7 +14,6 @@ Download:
 
 [Release with tested readMega() and writeMega() functions](https://github.com/Sonophoto/Mega2560_Ports/releases/tag/v0.8.1)
 
-
 Test:
 -----
 
@@ -24,7 +23,7 @@ run tests.ino in the tests directory to run all tests. Test output is written to
 Documentation:
 --------------
 
-[Programmers Documentation](https://github.com/Sonophoto/Mega2560_Ports/blob/master/src/mega2560_ports.h)
+[Programmers Documentation](https://github.com/Sonophoto/MegaFastPorts/blob/master/src/megafastports.h)
 
 
 Help:
